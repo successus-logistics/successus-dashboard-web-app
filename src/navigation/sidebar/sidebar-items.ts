@@ -100,6 +100,12 @@ export const sidebarItems: NavGroup[] = [
         icon: Gauge,
       },
       {
+        id: "driver-profiles",
+        title: "Driver Profiles",
+        url: "/dashboard/driver-profiles",
+        icon: Users,
+      },
+      {
         id: "crm",
         title: "CRM",
         url: "/dashboard/crm",
