@@ -1,7 +1,7 @@
 import { apiFetch } from "@/lib/auth/client";
 
 export async function GET(request: Request) {
-  const url = `/api/dashboard/timesheets/configs/`
+  const url = `/api/timesheets/configs/`;
   console.log(url);
   try {
     const response = await apiFetch(url);
@@ -19,11 +19,21 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const body = await request.json()
+  const body = await request.json();
   const djangoBody = {
     ...(body.postcodeRates && {
       postcodes: body.postcodeRates.map(
-        ({ postcode, rate, effective_from, id }: { id?: number; postcode: string; rate: number, effective_from: string }) => ({
+        ({
+          postcode,
+          rate,
+          effective_from,
+          id,
+        }: {
+          id?: number;
+          postcode: string;
+          rate: number;
+          effective_from: string;
+        }) => ({
           postcode,
           rate,
           id,
@@ -42,21 +52,20 @@ export async function POST(request: Request) {
     ...(body.vanDeduction !== undefined && {
       van_deduction: body.vanDeduction,
     }),
-  }
+  };
 
   let response;
   try {
-
-    response = await apiFetch(`/api/dashboard/timesheets/configs/`, {
+    response = await apiFetch(`/api/timesheets/configs/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(djangoBody),
-    })
+    });
     return Response.json(response);
   } catch (exception) {
-    console.log("exception", exception)
-    return Response.json(response)
+    console.log("exception", exception);
+    return Response.json(response);
   }
 }

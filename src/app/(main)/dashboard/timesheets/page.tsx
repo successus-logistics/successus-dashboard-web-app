@@ -4,9 +4,7 @@ import { TimesheetSubmissions } from "./_components/timesheet-submissions";
 import { apiFetch } from "@/lib/auth/client";
 
 async function getTimesheets(): Promise<TimesheetSubmission[]> {
-  const response = await apiFetch<TimesheetSubmission[]>(
-    "/api/dashboard/timesheets/",
-  );
+  const response = await apiFetch<TimesheetSubmission[]>("/api/timesheets/");
   return response;
 }
 

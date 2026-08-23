@@ -2,7 +2,7 @@ import { apiFetch } from "@/lib/auth/client";
 import { InvoiceList } from "./_components/invoice-list";
 
 async function getInvoiceData() {
-  const response = await apiFetch("/api/dashboard/invoices/");
+  const response = await apiFetch("/api/invoices/");
   return response;
 }
 

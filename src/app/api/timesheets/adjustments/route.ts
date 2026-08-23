@@ -3,7 +3,7 @@ import { apiFetch } from "@/lib/auth/client";
 export async function POST(request: Request) {
   const formData = await request.formData();
   console.log(formData.get("type"));
-  const url = `/api/dashboard/timesheets/${formData.get("timesheet_id")}/adjustments/`;
+  const url = `/api/timesheets/${formData.get("timesheet_id")}/adjustments/`;
   console.log(url);
   try {
     const response = await apiFetch(url, {

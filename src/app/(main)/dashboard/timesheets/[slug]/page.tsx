@@ -17,14 +17,14 @@ async function getIndividualTimesheets(
   slug: string,
 ): Promise<TimesheetBatchResponseType> {
   const response = await apiFetch<TimesheetBatchResponseType>(
-    "/api/dashboard/timesheets/" + slug,
+    "/api/timesheets/" + slug,
   );
   return response;
 }
 
 async function getAdjustments(slug: string): Promise<DriverAdjustment> {
   const response = await apiFetch<{ data: DriverAdjustment }>(
-    "/api/dashboard/timesheets/" + slug + "/adjustments/",
+    "/api/timesheets/" + slug + "/adjustments/",
   );
   return response.data;
 }

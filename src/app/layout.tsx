@@ -19,14 +19,23 @@ export const metadata: Metadata = {
 };
 
 async function coldStart() {
-  await fetch(`${process.env.API_URL}/api/dashboard/health/`)
+  await fetch(`${process.env.API_URL}/api/health/`);
 }
 
-export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  const { theme_mode, theme_preset, content_layout, navbar_style, sidebar_variant, sidebar_collapsible, font } =
-    PREFERENCE_DEFAULTS;
+export default async function RootLayout({
+  children,
+}: Readonly<{ children: ReactNode }>) {
+  const {
+    theme_mode,
+    theme_preset,
+    content_layout,
+    navbar_style,
+    sidebar_variant,
+    sidebar_collapsible,
+    font,
+  } = PREFERENCE_DEFAULTS;
 
-  coldStart()
+  coldStart();
 
   return (
     <html

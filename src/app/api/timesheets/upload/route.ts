@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     }
 
     const storedFileName = `${Date.now()}-${makeSafeFileName(file.name)}`;
-    const response = await apiFetch("/api/dashboard/timesheets/", {
+    const response = await apiFetch("/api/timesheets/", {
       method: "POST",
       body: formData,
     });

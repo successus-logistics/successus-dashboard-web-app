@@ -6,7 +6,11 @@ import { usePathname } from "next/navigation";
 import { ChevronRight, MailIcon, PlusCircleIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -90,7 +94,7 @@ export function NavMain({ items }: NavMainProps) {
       return item.subItems.some((sub) => path.startsWith(sub.url));
     }
 
-    return path === item.url;
+    return path.includes(item.url);
   };
 
   const isSubItemActive = (url: string) => {
@@ -152,16 +156,33 @@ export function NavMain({ items }: NavMainProps) {
   );
 }
 
-function NavItem({ item, isItemActive, isSubItemActive, isSubmenuOpen }: NavItemProps) {
+function NavItem({
+  item,
+  isItemActive,
+  isSubItemActive,
+  isSubmenuOpen,
+}: NavItemProps) {
   const { state, isMobile } = useSidebar();
   const isCollapsedDesktop = state === "collapsed" && !isMobile;
 
   if (!hasSubItems(item)) {
-    return <NavLinkItem item={item} isActive={isItemActive(item)} showIconFallback={isCollapsedDesktop} />;
+    return (
+      <NavLinkItem
+        item={item}
+        isActive={isItemActive(item)}
+        showIconFallback={isCollapsedDesktop}
+      />
+    );
   }
 
   if (isCollapsedDesktop) {
-    return <NavDropdownItem item={item} isActive={isItemActive(item)} isSubItemActive={isSubItemActive} />;
+    return (
+      <NavDropdownItem
+        item={item}
+        isActive={isItemActive(item)}
+        isSubItemActive={isSubItemActive}
+      />
+    );
   }
 
   return (
@@ -177,7 +198,12 @@ function NavItem({ item, isItemActive, isSubItemActive, isSubmenuOpen }: NavItem
 function NavLinkItem({ item, isActive, showIconFallback }: NavLinkItemProps) {
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton asChild aria-disabled={item.disabled} tooltip={item.title} isActive={isActive}>
+      <SidebarMenuButton
+        asChild
+        aria-disabled={item.disabled}
+        tooltip={item.title}
+        isActive={isActive}
+      >
         <Link
           prefetch={false}
           href={item.url}
@@ -207,32 +233,51 @@ function NavLinkIcon({ item, showFallback }: NavLinkIconProps) {
   return null;
 }
 
-function NavDropdownItem({ item, isActive, isSubItemActive }: NavDropdownItemProps) {
+function NavDropdownItem({
+  item,
+  isActive,
+  isSubItemActive,
+}: NavDropdownItemProps) {
   const Icon = item.icon;
 
   return (
     <SidebarMenuItem>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <SidebarMenuButton tooltip={item.title} isActive={isActive} disabled={item.disabled}>
+          <SidebarMenuButton
+            tooltip={item.title}
+            isActive={isActive}
+            disabled={item.disabled}
+          >
             {Icon ? <Icon /> : <CollapsedIconFallback title={item.title} />}
             <span>{item.title}</span>
           </SidebarMenuButton>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent side="right" align="start" sideOffset={12} className="w-48">
+        <DropdownMenuContent
+          side="right"
+          align="start"
+          sideOffset={12}
+          className="w-48"
+        >
           <DropdownMenuGroup>
             {item.subItems.map((subItem) => {
               const SubIcon = subItem.icon;
 
               return (
-                <DropdownMenuItem key={subItem.id} asChild disabled={subItem.disabled}>
+                <DropdownMenuItem
+                  key={subItem.id}
+                  asChild
+                  disabled={subItem.disabled}
+                >
                   <Link
                     prefetch={false}
                     href={subItem.url}
                     target={subItem.newTab ? "_blank" : undefined}
                     rel={subItem.newTab ? "noreferrer" : undefined}
-                    aria-current={isSubItemActive(subItem.url) ? "page" : undefined}
+                    aria-current={
+                      isSubItemActive(subItem.url) ? "page" : undefined
+                    }
                     className="flex items-center gap-2"
                   >
                     {SubIcon && <SubIcon />}
@@ -248,14 +293,27 @@ function NavDropdownItem({ item, isActive, isSubItemActive }: NavDropdownItemPro
   );
 }
 
-function NavCollapsibleItem({ item, isActive, defaultOpen, isSubItemActive }: NavCollapsibleItemProps) {
+function NavCollapsibleItem({
+  item,
+  isActive,
+  defaultOpen,
+  isSubItemActive,
+}: NavCollapsibleItemProps) {
   const Icon = item.icon;
 
   return (
-    <Collapsible asChild defaultOpen={defaultOpen} className="group/collapsible">
+    <Collapsible
+      asChild
+      defaultOpen={defaultOpen}
+      className="group/collapsible"
+    >
       <SidebarMenuItem>
         <CollapsibleTrigger asChild>
-          <SidebarMenuButton tooltip={item.title} isActive={isActive} disabled={item.disabled}>
+          <SidebarMenuButton
+            tooltip={item.title}
+            isActive={isActive}
+            disabled={item.disabled}
+          >
             {Icon && <Icon />}
             <span>{item.title}</span>
             <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />

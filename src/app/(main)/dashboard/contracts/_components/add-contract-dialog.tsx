@@ -20,35 +20,49 @@ import {
 } from "@/components/ui/dialog";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ClientRecord } from "./contract-data";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-type DateRange = { from: Date; to: Date }
-export function AddContractDialog({ clientData }: { clientData: ClientRecord[] }) {
-  const router = useRouter()
-  const [fileSelected, setFileSelected] = React.useState("")
+type DateRange = { from: Date; to: Date };
+export function AddContractDialog({
+  clientData,
+}: {
+  clientData: ClientRecord[];
+}) {
+  const router = useRouter();
+  const [fileSelected, setFileSelected] = React.useState("");
   const [date, setDate] = React.useState<DateRange>({
     from: new Date(),
     to: new Date(),
   });
   const handleForm = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    formData.append("effective_from", date.from.toISOString())
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    formData.append("effective_from", date.from.toISOString());
     if (date.to) {
-      formData.append("effective_to", date.to.toISOString())
+      formData.append("effective_to", date.to.toISOString());
     }
     for (const [key, value] of formData.entries()) {
-      console.log(key, value)
+      console.log(key, value);
     }
     try {
       const response = await fetch("/api/contracts/upload", {
         method: "POST",
         body: formData,
-      })
+      });
       const result = await response.json();
       toast.success(result.message);
     } catch {
@@ -56,8 +70,7 @@ export function AddContractDialog({ clientData }: { clientData: ClientRecord[] }
     } finally {
       router.refresh();
     }
-
-  }
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -71,7 +84,8 @@ export function AddContractDialog({ clientData }: { clientData: ClientRecord[] }
         <DialogHeader>
           <DialogTitle>Add a new contract</DialogTitle>
           <DialogDescription>
-            Upload the signed contract and enter the rules the invoice generator will use.
+            Upload the signed contract and enter the rules the invoice generator
+            will use.
           </DialogDescription>
         </DialogHeader>
 
@@ -86,36 +100,37 @@ export function AddContractDialog({ clientData }: { clientData: ClientRecord[] }
                   "border border-dashed bg-muted/30 px-4 py-6 text-center transition-colors hover:bg-muted/50"
                 }
               >
-                {fileSelected ?
-                  (
-                    <>
-                      <span
-                        className={
-                          "flex size-10 items-center justify-center rounded-lg bg-background" +
-                          "ring-1 ring-foreground/10"
-                        }
-                      >
-                        <FileUp className="size-5 text-green-500" />
-                      </span>
-                      <span className="font-medium text-sm">{fileSelected}</span>
-                    </>
-                  )
-                  :
-                  (
-                    <>
-                      <span
-                        className={
-                          "flex size-10 items-center justify-center rounded-lg bg-background " +
-                          "ring-1 ring-foreground/10"
-                        }
-                      >
-                        <FileUp className="size-5 text-muted-foreground" />
-                      </span>
-                      <span className="font-medium text-sm">Choose a contract file</span>
-                      <span className="text-muted-foreground text-xs">PNG, JPEG, WebP, and <br /> other common doc formats up to 20 MB</span>
-                    </>
-                  )
-                }
+                {fileSelected ? (
+                  <>
+                    <span
+                      className={
+                        "flex size-10 items-center justify-center rounded-lg bg-background" +
+                        "ring-1 ring-foreground/10"
+                      }
+                    >
+                      <FileUp className="size-5 text-green-500" />
+                    </span>
+                    <span className="font-medium text-sm">{fileSelected}</span>
+                  </>
+                ) : (
+                  <>
+                    <span
+                      className={
+                        "flex size-10 items-center justify-center rounded-lg bg-background " +
+                        "ring-1 ring-foreground/10"
+                      }
+                    >
+                      <FileUp className="size-5 text-muted-foreground" />
+                    </span>
+                    <span className="font-medium text-sm">
+                      Choose a contract file
+                    </span>
+                    <span className="text-muted-foreground text-xs">
+                      PNG, JPEG, WebP, and <br /> other common doc formats up to
+                      20 MB
+                    </span>
+                  </>
+                )}
               </label>
               <Input
                 id="contract-file"
@@ -124,9 +139,11 @@ export function AddContractDialog({ clientData }: { clientData: ClientRecord[] }
                 className="sr-only"
                 name="file"
                 onChange={(event) => {
-                  if (event.currentTarget.files) setFileSelected(event.currentTarget.files[0].name)
-                  else setFileSelected("")
-                }} />
+                  if (event.currentTarget.files)
+                    setFileSelected(event.currentTarget.files[0].name);
+                  else setFileSelected("");
+                }}
+              />
             </Field>
 
             <div className="grid gap-4 sm:grid-cols-2">
@@ -138,13 +155,12 @@ export function AddContractDialog({ clientData }: { clientData: ClientRecord[] }
                   </SelectTrigger>
                   <SelectContent>
                     {clientData.map((client) => {
-                      console.log(client)
+                      console.log(client);
                       return (
-
-                        < SelectItem key={client.id} value={"" + client.id} >
+                        <SelectItem key={client.id} value={"" + client.id}>
                           {client.account_name}
                         </SelectItem>
-                      )
+                      );
                     })}
                   </SelectContent>
                 </Select>
@@ -152,17 +168,31 @@ export function AddContractDialog({ clientData }: { clientData: ClientRecord[] }
 
               <Field>
                 <FieldLabel htmlFor="contract-name">Contract name</FieldLabel>
-                <Input id="contract-name" placeholder="e.g. Last Mile 2026" name="name" />
+                <Input
+                  id="contract-name"
+                  placeholder="e.g. Last Mile 2026"
+                  name="name"
+                />
               </Field>
 
               <Field>
-                <FieldLabel htmlFor="contract-start-date">Start date</FieldLabel>
-                <ContractDatePicker id="contract-start-date" date={date.from} setDate={(value) => setDate({ ...date, from: value })} />
+                <FieldLabel htmlFor="contract-start-date">
+                  Start date
+                </FieldLabel>
+                <ContractDatePicker
+                  id="contract-start-date"
+                  date={date.from}
+                  setDate={(value) => setDate({ ...date, from: value })}
+                />
               </Field>
 
               <Field>
                 <FieldLabel htmlFor="contract-end-date">End date</FieldLabel>
-                <ContractDatePicker id="contract-end-date" date={date.to} setDate={(value) => setDate({ ...date, to: value })} />
+                <ContractDatePicker
+                  id="contract-end-date"
+                  date={date.to}
+                  setDate={(value) => setDate({ ...date, to: value })}
+                />
               </Field>
 
               <Field>
@@ -173,7 +203,14 @@ export function AddContractDialog({ clientData }: { clientData: ClientRecord[] }
               <div className="grid grid-cols-[1fr_8rem] gap-2">
                 <Field>
                   <FieldLabel htmlFor="contract-rate">Rate</FieldLabel>
-                  <Input id="contract-rate" type="number" min="0" step="0.01" placeholder="0.00" name="rate" />
+                  <Input
+                    id="contract-rate"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00"
+                    name="rate"
+                  />
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="contract-rate-unit">Unit</FieldLabel>
@@ -203,11 +240,19 @@ export function AddContractDialog({ clientData }: { clientData: ClientRecord[] }
           </DialogFooter>
         </form>
       </DialogContent>
-    </Dialog >
+    </Dialog>
   );
 }
 
-function ContractDatePicker({ id, date, setDate }: { id: string; date: Date; setDate: (date: Date) => void }) {
+function ContractDatePicker({
+  id,
+  date,
+  setDate,
+}: {
+  id: string;
+  date: Date;
+  setDate: (date: Date) => void;
+}) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -224,7 +269,10 @@ function ContractDatePicker({ id, date, setDate }: { id: string; date: Date; set
           <CalendarIcon className="text-muted-foreground" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-(--radix-popover-trigger-width) p-0" align="start">
+      <PopoverContent
+        className="w-(--radix-popover-trigger-width) p-0"
+        align="start"
+      >
         <Calendar
           className="w-full"
           mode="single"

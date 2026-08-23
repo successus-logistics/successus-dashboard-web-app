@@ -71,7 +71,12 @@ export function getDeepDifferences(baseObj: any, comparisonObj: any): any {
     if (isEqual(baseValue, compValue)) return;
 
     // 2. If both are objects (and not arrays), recursively find nested changes
-    if (isObject(baseValue) && isObject(compValue) && !Array.isArray(baseValue) && !Array.isArray(compValue)) {
+    if (
+      isObject(baseValue) &&
+      isObject(compValue) &&
+      !Array.isArray(baseValue) &&
+      !Array.isArray(compValue)
+    ) {
       const nestedChanges = getDeepDifferences(baseValue, compValue);
       if (Object.keys(nestedChanges).length > 0) {
         changes[key] = nestedChanges;
@@ -166,9 +171,8 @@ function getChangedFields(
   return changes;
 }
 
-
 export default function Rules() {
-  const router = useRouter()
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [showChanges, setShowChanges] = useState(false);
   const [originalItems, setOriginalItems] = useState<EditableType>({
@@ -195,7 +199,7 @@ export default function Rules() {
 
   const verifyChanges = () => {
     const result = getChangedFields(originalItems, visibleItems);
-    console.log("changed", result)
+    console.log("changed", result);
     if (Object.keys(result).length > 0) {
       setShowChanges(true);
       setChangedItems(result);
@@ -206,48 +210,51 @@ export default function Rules() {
 
   const submitChanges = async () => {
     const result = getChangedFields(originalItems, visibleItems);
-    const diff = getDeepDifferences(originalItems, visibleItems)
+    const diff = getDeepDifferences(originalItems, visibleItems);
     const response = await fetch("/api/timesheets/rules", {
       method: "POST",
       body: JSON.stringify(diff),
-    })
+    });
     if (!response.ok) {
-      const res = response
-      toast.error(`Failed to save. Please check values.`)
+      const res = response;
+      toast.error(`Failed to save. Please check values.`);
     } else {
-      toast.success("Successfully updated rules.")
+      toast.success("Successfully updated rules.");
     }
     await cancelHandler();
   };
 
   const cancelHandler = async () => {
-    setOpen(false)
+    setOpen(false);
     setShowChanges(false);
     setChangedItems({});
-    await getSavedRules()
+    await getSavedRules();
   };
 
   const getSavedRules = async () => {
-    console.log("ping")
-    const response = await fetch("/api/timesheets/rules")
-    const result = await response.json()
-    let postcodes = (result.postcodes as PostcodeRate[]).map((postcode) => ({ ...postcode, fieldId: crypto.randomUUID() }))
+    console.log("ping");
+    const response = await fetch("/api/timesheets/rules");
+    const result = await response.json();
+    let postcodes = (result.postcodes as PostcodeRate[]).map((postcode) => ({
+      ...postcode,
+      fieldId: crypto.randomUUID(),
+    }));
     setOriginalItems({
       postcodeRates: postcodes,
       fuelPerStop: result.fuel_allowance,
       incentivePerStop: result.stop_incentive,
       vanDeduction: result.van_deduction,
-    })
+    });
     setVisibleItems({
       postcodeRates: postcodes,
       fuelPerStop: result.fuel_allowance,
       incentivePerStop: result.stop_incentive,
       vanDeduction: result.van_deduction,
-    })
-  }
+    });
+  };
   useEffect(() => {
-    getSavedRules()
-  }, [])
+    getSavedRules();
+  }, []);
 
   return (
     <Dialog
@@ -275,10 +282,10 @@ export default function Rules() {
             </DialogHeader>
             {changes.fuelPerStop && (
               <p>
-                Fuel per stop: {" "}
+                Fuel per stop:{" "}
                 <span className="font-bold text-destructive">
                   £{changes.fuelPerStop.before}
-                </span> {" "}
+                </span>{" "}
                 →{" "}
                 <span className="font-bold text-green-500">
                   £{changes.fuelPerStop.after}
@@ -291,7 +298,7 @@ export default function Rules() {
                 Incentive per stop:{" "}
                 <span className="font-bold text-destructive">
                   £{changes.incentivePerStop.before}
-                </span> {" "}
+                </span>{" "}
                 →{" "}
                 <span className="font-bold text-green-500">
                   £{changes.incentivePerStop.after}
@@ -301,10 +308,10 @@ export default function Rules() {
 
             {changes.vanDeduction && (
               <p>
-                Van deduction: {" "}
+                Van deduction:{" "}
                 <span className="font-bold text-destructive">
                   £{changes.vanDeduction.before}
-                </span> {" "}
+                </span>{" "}
                 →{" "}
                 <span className="font-bold text-green-500">
                   £{changes.vanDeduction.after}
@@ -349,20 +356,23 @@ export default function Rules() {
                   )}
 
                   <div>
-                    {changes.postcodeRates.added.length > 0 && (
+                    {changes.postcodeRates.added.length > 0 &&
                       changes.postcodeRates.added.map((rate, id) => (
-                        <div key={id} className="border w-fit p-3 rounded-md mt-3">
+                        <div
+                          key={id}
+                          className="border w-fit p-3 rounded-md mt-3"
+                        >
                           <h4>Added</h4>
 
-                          <div >
+                          <div>
                             <div>
-                              Effective From: {" "}
+                              Effective From:{" "}
                               <p className="inline text-green-500">
                                 {rate.effective_from}
                               </p>
                             </div>
                             <div>
-                              Postcoded: {" "}
+                              Postcoded:{" "}
                               <p className="inline text-green-500">
                                 {rate.postcode}
                               </p>
@@ -375,30 +385,33 @@ export default function Rules() {
                             </div>
                           </div>
                         </div>
-                      ))
-                    )}
+                      ))}
                   </div>
 
-                  {changes.postcodeRates.deleted.length > 0 && (
+                  {changes.postcodeRates.deleted.length > 0 &&
                     changes.postcodeRates.deleted.map((rate) => (
-                      <div className="border w-fit p-3 rounded-md mt-3" key={rate.id}>
+                      <div
+                        className="border w-fit p-3 rounded-md mt-3"
+                        key={rate.id}
+                      >
                         <h4>Removed</h4>
 
-                        <div >
+                        <div>
                           <p className="text-red-500">
                             {rate.postcode} — {rate.rate}
                           </p>
                         </div>
                       </div>
-                    ))
-                  )}
+                    ))}
                 </div>
               </div>
             )}
             <DialogFooter>
-              <Button variant={"outline"} onClick={() => {
-                setShowChanges(false)
-              }}
+              <Button
+                variant={"outline"}
+                onClick={() => {
+                  setShowChanges(false);
+                }}
               >
                 &larr; back
               </Button>
@@ -436,7 +449,7 @@ export default function Rules() {
                     </FieldLabel>
                     <Input
                       id="fuel-field"
-                      value={visibleItems.fuelPerStop}
+                      defaultValue={visibleItems.fuelPerStop}
                       type="number"
                       onChange={(e) =>
                         updateItems({
@@ -451,7 +464,7 @@ export default function Rules() {
                     </FieldLabel>
                     <Input
                       id="incentive-field"
-                      value={visibleItems.incentivePerStop}
+                      defaultValue={visibleItems.incentivePerStop}
                       type="number"
                       onChange={(e) =>
                         updateItems({
@@ -466,7 +479,7 @@ export default function Rules() {
                     </FieldLabel>
                     <Input
                       id="van-deduc-field"
-                      value={visibleItems.vanDeduction}
+                      defaultValue={visibleItems.vanDeduction}
                       type="number"
                       onChange={(e) =>
                         updateItems({
