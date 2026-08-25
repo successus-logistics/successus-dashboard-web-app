@@ -104,6 +104,7 @@ export const sidebarItems: NavGroup[] = [
         title: "Driver Profiles",
         url: "/dashboard/driver-profiles",
         icon: Users,
+        badge: "soon",
       },
       {
         id: "crm",
