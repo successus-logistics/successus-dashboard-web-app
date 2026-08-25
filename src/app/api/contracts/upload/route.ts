@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const response = await apiFetch("/api/business/contracts/", {
+    const response = await apiFetch("/api/clients/contracts/", {
       method: "POST",
       body: formData,
     });
