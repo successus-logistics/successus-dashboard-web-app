@@ -3,7 +3,7 @@ import { ContractVault } from "./_components/contract-vault";
 import { ClientRecord } from "./_components/contract-data";
 
 async function getContracts() {
-  const response = await apiFetch<ClientRecord[]>("/api/business/contracts/");
+  const response = await apiFetch<ClientRecord[]>("/api/clients/contracts/");
   return response;
 }
 
