@@ -1,11 +1,19 @@
+import type { paths } from "@/lib/schema";
+
 export const employmentTypes = ["employee", "contractor", "agency"] as const;
+
+export type DriverRecord =
+  paths["/api/fleet/drivers/{id}/"]["get"]["responses"]["200"]["content"]["application/json"];
+
+export type LicenseType = paths["/api/fleet/drivers/"];
 
 export type EmploymentType = (typeof employmentTypes)[number];
 
 export type PartialDriverRecord = Partial<DriverRecord>;
 export type DriverCreateType = Omit<DriverRecord, "id">;
 
-export interface DriverRecord {
+// Unused
+export interface DriverRecords {
   id: string;
   firstName: string;
   lastName: string;
@@ -37,16 +45,7 @@ export interface DriverRecord {
 export function driverFactory(overrides?: DriverCreateType): DriverCreateType {
   const timestamp = new Date().toISOString();
 
-  const defaults = {
-    firstName: "",
-    lastName: "",
-    fullName: "",
-    dateOfBirth: "",
-    utr_number: "",
-    vat_number: "",
-    phone: "",
-    email: "",
-    address: "",
+  const vals = {
     licenceNumber: "",
     licenceCategories: "",
     licenceExpiry: "",
@@ -61,6 +60,18 @@ export function driverFactory(overrides?: DriverCreateType): DriverCreateType {
     updatedAt: timestamp,
     updatedBy: "current user",
     isActive: true,
+  };
+  const defaults = {
+    first_name: "",
+    last_name: "",
+    full_name: "",
+    dob: "",
+    utr_number: "",
+    vat_number: "",
+    phone: "",
+    email: "",
+    address: "",
+    created_at: timestamp,
   };
 
   return {

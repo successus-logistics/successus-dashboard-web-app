@@ -27,8 +27,9 @@ export async function apiFetch<T>(
 
   if (!response.ok) {
     let errorData = null;
+    console.log("response is not ok");
     try {
-      errorData = response.json(); // Catch the 422/405 specific message
+      errorData = await response.json(); // Catch the 422/405 specific message
     } catch {
       errorData = { message: "Unknown downstream error" };
     }

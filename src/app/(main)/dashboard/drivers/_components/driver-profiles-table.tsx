@@ -60,6 +60,7 @@ import {
   PartialDriverRecord,
 } from "../types";
 import { DriverProfileDialog } from "./driver-profile-dialog";
+import Link from "next/link";
 
 const driverViews = ["active", "deleted"] as const;
 
@@ -98,12 +99,11 @@ function matchesSearch(driver: PartialDriverRecord, normalizedQuery: string) {
 
   return [
     driver?.id,
-    driver?.firstName,
-    driver?.lastName,
+    driver?.first_name,
+    driver?.last_name,
     driver?.email,
-    driver?.phone,
-    driver?.licenceNumber,
-    driver.fullName,
+    driver?.phone_number,
+    driver.full_name,
   ].some((value) => value?.toLowerCase().includes(normalizedQuery));
 }
 
@@ -165,7 +165,7 @@ export function DriverProfilesTable({
     try {
       // TODO: POST NEW DRIVER
       toast.success(
-        `${driver.fullName} was ${dialogMode === "add" ? "added" : "updated"} and saved locally.`,
+        `${driver.full_name} was ${dialogMode === "add" ? "added" : "updated"} and saved locally.`,
       );
       return true;
     } catch (error) {
@@ -417,10 +417,10 @@ export function DriverProfilesTable({
 
         <Card>
           <CardContent className="flex flex-col gap-4 px-0">
-            <Table>
+            <Table className="table-fixed *:w-full">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-12 text-center">
+                  <TableHead className="w-12">
                     <Checkbox
                       aria-label="Select all drivers on this page"
                       checked={
@@ -433,17 +433,11 @@ export function DriverProfilesTable({
                       onCheckedChange={togglePageSelection}
                     />
                   </TableHead>
-                  <TableHead className="text-center">Driver</TableHead>
-                  <TableHead className="text-center">Contact</TableHead>
-                  <TableHead className="text-center">Employment</TableHead>
-                  <TableHead className="text-center">Status</TableHead>
-                  <TableHead className="text-center">Depot / Team</TableHead>
-                  <TableHead className="text-center">
-                    Assigned vehicle
-                  </TableHead>
-                  <TableHead className="text-center">Licence expiry</TableHead>
-                  <TableHead className="text-center">Compliance</TableHead>
-                  <TableHead className="text-center">Actions</TableHead>
+                  <TableHead>Driver</TableHead>
+                  <TableHead>Contact</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Licence expiry</TableHead>
+                  <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -455,54 +449,54 @@ export function DriverProfilesTable({
                         selectedIds.has(driver.id) ? "selected" : undefined
                       }
                     >
-                      <TableCell className="text-center">
+                      <TableCell>
                         <Checkbox
-                          aria-label={`Select ${driver.fullName}`}
+                          aria-label={`Select ${driver.full_name}`}
                           checked={selectedIds.has(driver.id)}
                           onCheckedChange={(checked) =>
                             toggleDriver(driver.id, checked)
                           }
                         />
                       </TableCell>
-                      <TableCell className="text-center">
+                      <TableCell>
                         {view === "active" ? (
                           <Button
                             type="button"
                             variant="link"
                             className="h-auto px-0"
-                            onClick={() => openEditDialog(driver)}
+                            asChild
                           >
-                            {driver.full_name}
+                            <Link href={`drivers/${driver.id}`}>
+                              {driver.full_name}
+                            </Link>
                           </Button>
                         ) : (
-                          <p className="font-medium">{driver.fullName}</p>
+                          <p className="font-medium">{driver.full_name}</p>
                         )}
                       </TableCell>
-                      <TableCell className="text-center">
-                        <p>{driver.phone}</p>
+                      <TableCell>
+                        <p>{driver.phone_number}</p>
                         <p className="text-muted-foreground text-xs">
                           {driver.email}
                         </p>
                       </TableCell>
-                      <TableCell className="text-center">
+                      <TableCell>
                         <Badge
                           variant="outline"
-                          className={driverStatusStyles(driver.isActive!)}
+                          className={driverStatusStyles(true)}
                         >
-                          {formatLabel(driver.isActive ? "active" : "deleted")}
+                          {formatLabel(true ? "active" : "deleted")}
                         </Badge>
                       </TableCell>
-                      <TableCell className="text-center">
-                        {formatDate(driver.licenceExpiry ?? "")}
-                      </TableCell>
-                      <TableCell className="text-center">
+                      <TableCell>{formatDate("")}</TableCell>
+                      <TableCell>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button
                               type="button"
                               variant="ghost"
                               size="icon-sm"
-                              aria-label={`Actions for ${driver.fullName}`}
+                              aria-label={`Actions for ${driver.full_name}`}
                             >
                               <Ellipsis />
                             </Button>
@@ -612,7 +606,6 @@ export function DriverProfilesTable({
 
       <DriverProfileDialog
         driver={editingDriver}
-        mode={dialogMode}
         open={isProfileDialogOpen}
         onOpenChange={setIsProfileDialogOpen}
         onSave={saveDriver}

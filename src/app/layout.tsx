@@ -18,10 +18,6 @@ export const metadata: Metadata = {
   description: APP_CONFIG.meta.description,
 };
 
-async function coldStart() {
-  await fetch(`${process.env.API_URL}/api/health/`);
-}
-
 export default async function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
@@ -34,8 +30,6 @@ export default async function RootLayout({
     sidebar_collapsible,
     font,
   } = PREFERENCE_DEFAULTS;
-
-  coldStart();
 
   return (
     <html
