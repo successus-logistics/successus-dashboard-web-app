@@ -55,9 +55,15 @@ export function DriverProfileDialog({
   const [draft, setDraft] = React.useState<PartialDriverRecord>(
     driverFactory(driver),
   );
+  const sections = {
+    personal: ["first_name", "last_name", "dob"],
+    license: ["license_number", "license_expiry"],
+    rtw: ["passport no"]
+  } as const;
   const [isSaving, setIsSaving] = React.useState(false);
-  const [tab, setTab] = React.useState("");
-  const [sectionCompletion, setSectionCompletion] = React.useState("");
+  const [tab, setTab] = React.useState("tab-personal");
+  const [isFinal, setIsFinal] = React.useState(false);
+  const [nextSection, setNextSection] = React.useState("");
 
   function update<K extends keyof DriverRecord>(
     field: K,
@@ -65,13 +71,11 @@ export function DriverProfileDialog({
   ) {
     setDraft((current) => ({ ...current, [field]: value }));
   }
-  console.log("draft:", draft);
 
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const requiredValues = Object.entries(sections).some(([key, val]) => {
-      console.log("key is", key);
       return getProgress(key) !== "complete";
     });
     if (requiredValues) {
@@ -96,21 +100,43 @@ export function DriverProfileDialog({
       setIsSaving(false);
     }
   }
-  const sections = {
-    personal: ["first_name", "last_name", "dob"],
-    license: ["license_number", "license_expiry"],
-  } as const;
+
+  function getTabState(section: keyof typeof sections) {
+    const isActive = isCurrent(section)
+    const state = getProgress(section)
+    if (state === "complete") {
+      return "complete"
+    }
+    if (isActive) return "active"
+    return "incomplete"
+  }
 
   function getProgress(section: keyof typeof sections) {
     const values = sections[section].map((field) => draft[field]);
     const filled = values.filter(
       (value) => value !== null && value !== "" && value !== undefined,
     ).length;
-    console.log(values, section);
+
     if (filled === 0) return "incomplete";
     if (filled === sections[section].length) return "complete";
-    return "current";
+    return "partial";
   }
+
+  function isCurrent(section: keyof typeof sections) {
+    const keys = Object.keys(sections)
+    let found = ""
+    for (const key of keys) {
+      if (getProgress(key) !== "complete") {
+        found = key
+        break
+      }
+    }
+    if (section === found) {
+      return true
+    }
+    return false
+  }
+
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -130,9 +156,9 @@ export function DriverProfileDialog({
         >
           <div className="grid max-h-[calc(92vh-9.5rem)] gap-4 overflow-y-auto bg-muted/20 p-4">
             <Tabs
+              value={tab}
               onValueChange={(val) => {
                 setTab(val);
-                console.log("tab is on", val);
               }}
               defaultValue="tab-personal"
             >
@@ -140,12 +166,12 @@ export function DriverProfileDialog({
                 <div className="h-20! w-full items-center bg-none! px-10">
                   <TabsTrigger
                     value="tab-personal"
-                    className="flex-col h-10 bg-none! justify-center"
+                    className="flex-col h-10 justify-center"
                   >
                     <DriverProgressTab
                       tabNum={1}
                       tabTitle="Personal"
-                      tabStatus={getProgress("personal")}
+                      tabStatus={getTabState("personal")}
                     />
                   </TabsTrigger>
                   <DriverProgressBar status={getProgress("personal")} />
@@ -156,7 +182,7 @@ export function DriverProfileDialog({
                     <DriverProgressTab
                       tabNum={2}
                       tabTitle="License"
-                      tabStatus={getProgress("license")}
+                      tabStatus={getTabState("license")}
                     />
                   </TabsTrigger>
                   <DriverProgressBar status={getProgress("license")} />
@@ -167,7 +193,7 @@ export function DriverProfileDialog({
                     <DriverProgressTab
                       tabNum={3}
                       tabTitle="Right To Work"
-                      tabStatus="incomplete"
+                      tabStatus={getTabState("rtw")}
                     />
                   </TabsTrigger>
                   <DriverProgressBar status="incomplete" />
@@ -229,12 +255,12 @@ function DriverProgressTab({
 }: {
   tabNum: number;
   tabTitle: string;
-  tabStatus: "complete" | "incomplete";
+  tabStatus: "complete" | "incomplete" | "active";
 }) {
   return (
     <div className=" flex flex-col items-center">
       <div
-        className={`rounded-full h-5 w-5 aspect-square ${tabStatus === "complete" ? "bg-green-500 text-white" : "bg-white text-black"} `}
+        className={`rounded-full h-5 w-5 aspect-square ${tabStatus === "complete" ? "bg-green-500 text-white" : tabStatus === "active" ? "bg-primary" : "bg-white text-black"} `}
       >
         {tabNum}
       </div>
