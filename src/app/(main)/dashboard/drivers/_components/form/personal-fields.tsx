@@ -22,14 +22,20 @@ export default function PersonalFields({
         id="driver-first-name"
         value={driver.first_name ?? ""}
         required
-        onChange={(value) => onUpdate("first_name", value)}
+        onChange={(value) => {
+          onUpdate("first_name", value);
+          onUpdate("full_name", value + driver.full_name);
+        }}
       />
       <DriverField
         label="Last name"
         id="driver-last-name"
         value={driver.last_name ?? ""}
         required
-        onChange={(value) => onUpdate("last_name", value)}
+        onChange={(value) => {
+          onUpdate("last_name", value);
+          onUpdate("full_name", driver.full_name + value);
+        }}
       />
       <DriverDatePicker
         label="Date of birth"

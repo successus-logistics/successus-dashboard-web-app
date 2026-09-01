@@ -26,6 +26,7 @@ export function DriverField({
       <Input
         id={id}
         type={type}
+        name={label}
         defaultValue={value}
         required={required}
         placeholder={placeholder ?? `Enter ${label.toLowerCase()}`}

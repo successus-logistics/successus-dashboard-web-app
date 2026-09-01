@@ -5,6 +5,8 @@ export const employmentTypes = ["employee", "contractor", "agency"] as const;
 export type DriverRecord =
   paths["/api/fleet/drivers/{id}/"]["get"]["responses"]["200"]["content"]["application/json"];
 
+// export type LicenseRecord = paths["/api/fleet/drivers/{id}"]
+
 export type LicenseType = paths["/api/fleet/drivers/"];
 
 export type EmploymentType = (typeof employmentTypes)[number];

@@ -1,3 +1,5 @@
+import { FieldSet } from "@/components/ui/field";
+
 interface FormSectionProps {
   title: string;
   description: string;
@@ -12,7 +14,7 @@ export default function FormSection({
   children,
 }: FormSectionProps) {
   return (
-    <section>
+    <FieldSet>
       <div className="flex items-start gap-3 border-b p-4">
         <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
           <Icon className="size-4" />
@@ -23,6 +25,6 @@ export default function FormSection({
         </div>
       </div>
       <div className="grid gap-4 p-4 sm:grid-cols-2">{children}</div>
-    </section>
+    </FieldSet>
   );
 }

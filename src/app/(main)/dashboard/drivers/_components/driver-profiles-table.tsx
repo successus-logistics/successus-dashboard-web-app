@@ -274,8 +274,6 @@ export function DriverProfilesTable({
     );
   }
 
-  console.log(paginatedDrivers, filteredDrivers, driversInView);
-
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
