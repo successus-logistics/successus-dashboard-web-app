@@ -16,7 +16,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const response = await apiFetch("/api/fleet/drivers/", {
+    const response = await apiFetch("/api/onboarding/drivers/", {
       method: "POST",
       body: formData,
     });

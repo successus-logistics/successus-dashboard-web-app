@@ -45,24 +45,6 @@ export interface DriverRecords {
 }
 
 export function driverFactory(overrides?: DriverCreateType): DriverCreateType {
-  const timestamp = new Date().toISOString();
-
-  const vals = {
-    licenceNumber: "",
-    licenceCategories: "",
-    licenceExpiry: "",
-    licencePoints: 0,
-    rightToWorkExpiry: "",
-    emergencyContactName: "",
-    emergencyContactRelationship: "",
-    emergencyContactPhone: "",
-    notes: "",
-    createdAt: timestamp,
-    createdBy: "current user",
-    updatedAt: timestamp,
-    updatedBy: "current user",
-    isActive: true,
-  };
   const defaults = {
     first_name: "",
     last_name: "",
@@ -70,10 +52,9 @@ export function driverFactory(overrides?: DriverCreateType): DriverCreateType {
     dob: "",
     utr_number: "",
     vat_number: "",
-    phone: "",
+    phone_number: "",
     email: "",
     address: "",
-    created_at: timestamp,
   };
 
   return {

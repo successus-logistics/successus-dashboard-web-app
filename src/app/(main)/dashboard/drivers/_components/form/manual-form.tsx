@@ -65,12 +65,16 @@ export default function ManualForm() {
     if (!formRef.current) return;
 
     const formData = new FormData();
-    console.log(draft);
+    const vals = {}
     for (const [key, value] of Object.entries(draft)) {
       if (value) {
-        console.log("found value", key, value);
-        formData.append(key, value);
+        vals[key] = value;
       }
+    }
+    console.log("vals", vals)
+    formData.append("driver", JSON.stringify(vals));
+    for (const [key, value] of formData.entries()) {
+      console.log("keyv", key, value)
     }
 
     try {
