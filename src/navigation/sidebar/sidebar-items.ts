@@ -163,6 +163,12 @@ export const sidebarItems: NavGroup[] = [
         icon: FolderOpen,
         badge: "soon",
       },
+      {
+        id: "todo-notes",
+        title: "To-Do & Notes",
+        url: "/dashboard/file-manager/todo-notes",
+        icon: ListTodo,
+      },
     ],
   },
   {
