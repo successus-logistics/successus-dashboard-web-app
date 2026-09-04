@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
-import PersonalFields from "./personal-fields";
-import LicenseFields from "./license-fields";
+import PersonalFields from "./sections/personal-fields";
+import LicenceFields from "./sections/license-fields";
+import RTWFields from "./sections/rtw-fields";
 
 import { toast } from "sonner";
 
@@ -15,33 +16,39 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useRouter } from "next/navigation";
+import { Check } from "lucide-react";
+import FinacialFields from "./sections/financial-fields";
 
-export default function ManualForm() {
+export default function ManualForm({
+  onOpenChange,
+}: {
+  onOpenChange: (open: boolean) => void;
+}) {
   // required sections
   const sections = {
     personal: ["first_name", "last_name", "dob"],
     license: [
-      "license_number",
-      "license_country",
-      "license_issue_date",
-      "license_expiry_date",
-      "license_front_image",
-      "license_back_image",
+      "licence_number",
+      "licence_country",
+      "licence_issue_date",
+      "licence_expiry_date",
+      "licence_front_image",
+      "licence_back_image",
       "points",
       "categories",
     ],
     rtw: ["passport no"],
   } as const;
+  const router = useRouter();
   const [isSaving, setIsSaving] = useState(false);
   const [tab, setTab] = useState("tab-personal");
-  const [draft, setDraft] = useState<PartialDriverRecord>(driverFactory());
+  const [draft, setDraft] = useState<DriverRecord>(driverFactory());
   const formRef = useRef<HTMLFormElement>(null);
+  console.log("draft", draft);
 
-  function update<K extends keyof DriverRecord>(
-    field: K,
-    value: DriverRecord[K],
-  ) {
-    setDraft((current) => ({ ...current, [field]: value }));
+  function update(pair: unknown) {
+    setDraft((current) => ({ ...current, pair }));
   }
 
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
@@ -64,24 +71,30 @@ export default function ManualForm() {
 
     if (!formRef.current) return;
 
-    const formData = new FormData();
-    const vals = {}
+    const vals = {};
     for (const [key, value] of Object.entries(draft)) {
       if (value) {
         vals[key] = value;
       }
     }
-    console.log("vals", vals)
-    formData.append("driver", JSON.stringify(vals));
-    for (const [key, value] of formData.entries()) {
-      console.log("keyv", key, value)
-    }
 
     try {
       const saved = await fetch("/api/drivers/", {
         method: "POST",
-        body: formData,
+        body: JSON.stringify({ driver: vals }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
+      if (saved.ok) {
+        const data = await saved.json();
+        toast.success("Successfully added new driver", data);
+        onOpenChange(false);
+        router.refresh();
+      }
+    } catch (Exception) {
+      toast.error("Failed");
+      console.log("Error", Exception);
     } finally {
       setIsSaving(false);
     }
@@ -178,34 +191,26 @@ export default function ManualForm() {
                   />
                 </TabsTrigger>
                 <DriverProgressBar status="incomplete" />
-                <TabsTrigger
-                  value="tab-emergency"
-                  className="flex-col h-10 bg-none!"
-                >
+                <TabsTrigger value="tab-tax" className="flex-col h-10 bg-none!">
                   <DriverProgressTab
                     tabNum={4}
-                    tabTitle="Emergency"
-                    tabStatus="incomplete"
-                  />
-                </TabsTrigger>
-                <DriverProgressBar status="incomplete" />
-                <TabsTrigger
-                  value="tab-operational"
-                  className="flex-col h-10 bg-none!"
-                >
-                  <DriverProgressTab
-                    tabNum={5}
-                    tabTitle="Operational"
+                    tabTitle="Financial & Tax"
                     tabStatus="incomplete"
                   />
                 </TabsTrigger>
               </div>
             </TabsList>
             <TabsContent value="tab-personal">
-              <PersonalFields driver={draft} onUpdate={update} />
+              <PersonalFields driver={draft.driver} onUpdate={update} />
             </TabsContent>
             <TabsContent value="tab-license">
-              <LicenseFields driver={draft} onUpdate={update} />
+              <LicenceFields licence={draft} onUpdate={update} />
+            </TabsContent>
+            <TabsContent value="tab-rtw">
+              <RTWFields driver={draft} onUpdate={update} />
+            </TabsContent>
+            <TabsContent value="tab-tax">
+              <FinacialFields driver={draft} onUpdate={update} />
             </TabsContent>
           </Tabs>
         </div>
@@ -237,9 +242,9 @@ function DriverProgressTab({
   return (
     <div className=" flex flex-col items-center">
       <div
-        className={`rounded-full h-5 w-5 aspect-square ${tabStatus === "complete" ? "bg-green-500 text-white" : tabStatus === "active" ? "bg-primary text-white" : "bg-white text-black"} `}
+        className={`rounded-full h-5 w-5 grid place-items-center aspect-square ${tabStatus === "complete" ? "bg-green-500 text-white" : tabStatus === "active" ? "bg-primary text-white" : "bg-white text-black"} `}
       >
-        {tabNum}
+        {tabStatus === "complete" ? <Check strokeWidth={3} /> : <>{tabNum}</>}
       </div>
       <div className="absolute top-full text-xs">{tabTitle}</div>
     </div>

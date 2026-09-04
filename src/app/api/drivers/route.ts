@@ -4,21 +4,14 @@ const maxFileSize = 20 * 1024 * 1024;
 
 export async function POST(request: Request) {
   try {
-    const formData = await request.formData();
-    const file = formData.get("file");
-
-    if (file instanceof File) {
-      if (file.size > maxFileSize) {
-        return Response.json(
-          { message: "File size must be under 20 MB." },
-          { status: 400 },
-        );
-      }
-    }
-
+    const data = await request.json();
+    console.log(data);
     const response = await apiFetch("/api/onboarding/drivers/", {
       method: "POST",
-      body: formData,
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     return Response.json({
@@ -46,4 +39,10 @@ export async function POST(request: Request) {
       { status: 502 },
     );
   }
+}
+
+export async function DELETE(request: Request) {
+  const response = await apiFetch("/api/onboarding/drivers/", {
+    method: "DELETE",
+  });
 }

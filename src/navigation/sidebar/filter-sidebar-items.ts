@@ -2,10 +2,7 @@ import {
   canAccessRoute,
   type AppRole,
 } from "@/lib/access-control/role-access.data";
-import type {
-  NavGroup,
-  NavMainItem,
-} from "@/navigation/sidebar/sidebar-items";
+import type { NavGroup, NavMainItem } from "@/navigation/sidebar/sidebar-items";
 
 function filterNavigationItem(
   item: NavMainItem,

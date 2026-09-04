@@ -13,9 +13,10 @@ export default function EmailForm() {
   return (
     <div className="py-2">
       <DialogHeader className="border-b px-5 pt-5 pb-4">
-        <DialogTitle>Send form to driver</DialogTitle>
+        <DialogTitle>Send email invitation</DialogTitle>
         <DialogDescription>
-          Send an email to a driver so they can submit their details.
+          Send an email invitation to a driver so they can complete their
+          details.
         </DialogDescription>
       </DialogHeader>
       <form className="flex min-h-0 flex-col py-2">

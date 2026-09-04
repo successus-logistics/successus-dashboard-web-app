@@ -14,6 +14,7 @@ const jwtPayloadSchema = z.object({
   exp: z.number(),
   user_id: z.union([z.string(), z.number()]),
   roles: z.array(z.string()),
+  username: z.string(),
 });
 
 export class AuthApiUnavailableError extends Error {
@@ -30,7 +31,7 @@ export class InvalidAuthApiResponseError extends Error {
   }
 }
 
-function decodeJwtPayload(token: string): unknown {
+export function decodeJwtPayload(token: string): unknown {
   const segments = token.split(".");
 
   if (segments.length !== 3 || !segments[1]) {
@@ -96,11 +97,12 @@ export async function authenticateWithApi(
 
   const role = resolveAppRole(payloadResult.data.roles);
 
+  console.log("api", payloadResult.data.username);
   return {
     user: {
       id: String(payloadResult.data.user_id),
-      username: credentials.username,
-      displayName: credentials.username,
+      username: payloadResult.data.username,
+      displayName: payloadResult.data.username,
       email: null,
       role,
     },

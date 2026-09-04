@@ -7,7 +7,11 @@ import {
 } from "@/lib/auth/auth.constants";
 import { AppSidebar } from "@/app/(main)/dashboard/_components/sidebar/app-sidebar";
 import { Separator } from "@/components/ui/separator";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { getPreference } from "@/server/server-actions";
 import { testUsers } from "@/data/test_users";
@@ -21,39 +25,30 @@ import {
   MOCK_USER_ID_COOKIE_NAME,
   parseAppRole,
 } from "@/lib/access-control/role-access.data";
+import { resolveAppRole } from "@/lib/auth/resolve-app-role";
+import { decodeJwtPayload } from "@/lib/auth/api-auth-provider";
 
-export default async function Layout({ children }: Readonly<{ children: ReactNode }>) {
+export default async function Layout({
+  children,
+}: Readonly<{ children: ReactNode }>) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar_state")?.value !== "false";
-  const role = parseAppRole(
-    cookieStore.get(MOCK_ROLE_COOKIE_NAME)?.value,
-  );
-  const currentUserId = cookieStore.get(
-    MOCK_USER_ID_COOKIE_NAME,
-  )?.value;
+  const token = cookieStore.get("access_token")?.value;
+  const decodedJWT = decodeJwtPayload(token);
+  const role = resolveAppRole(decodedJWT.roles);
+  const currentUserId = decodedJWT.user_id;
 
-  const authMode = cookieStore.get(
-    AUTH_MODE_COOKIE_NAME,
-  )?.value;
+  const authMode = cookieStore.get(AUTH_MODE_COOKIE_NAME)?.value;
 
-  const authenticatedUsername = cookieStore.get(
-    AUTH_USERNAME_COOKIE_NAME,
-  )?.value;
-
+  const authenticatedUsername = decodedJWT.username;
   const localUser =
     authMode === "mock"
       ? testUsers.find((user) => user.id === currentUserId)
       : undefined;
 
   const currentUser = {
-    name:
-      localUser?.userName ??
-      authenticatedUsername ??
-      "Unknown User",
-    email:
-      localUser?.email ??
-      authenticatedUsername ??
-      "",
+    name: localUser?.userName ?? authenticatedUsername ?? "Unknown User",
+    email: localUser?.email ?? authenticatedUsername ?? "",
     avatar: "",
   };
   const [variant, collapsible] = await Promise.all([

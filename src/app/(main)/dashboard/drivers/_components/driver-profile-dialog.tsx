@@ -12,7 +12,7 @@ interface DriverDialogProps {
   driver: DriverCreateType;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSave: (driver: PartialDriverRecord) => Promise<boolean>;
+  onSave: () => void;
 }
 
 function formatAuditDate(value: string) {
@@ -45,7 +45,7 @@ export function DriverProfileDialog({ open, onOpenChange }: DriverDialogProps) {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="manual-add">
-            <ManualForm />
+            <ManualForm onOpenChange={onOpenChange} />
           </TabsContent>
           <TabsContent value="email-add">
             <EmailForm />

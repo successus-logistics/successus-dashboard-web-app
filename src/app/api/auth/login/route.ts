@@ -127,6 +127,7 @@ function setSessionCookies(
 
 export async function POST(request: Request) {
   const body: unknown = await request.json().catch(() => null);
+  console.log("body is:", body)
   const parsedBody = loginSchema.safeParse(body);
 
   if (!parsedBody.success) {

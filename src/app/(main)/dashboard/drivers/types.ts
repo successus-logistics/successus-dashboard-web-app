@@ -1,9 +1,11 @@
-import type { paths } from "@/lib/schema";
+import type { components, paths } from "@/lib/schema";
 
 export const employmentTypes = ["employee", "contractor", "agency"] as const;
 
-export type DriverRecord =
-  paths["/api/fleet/drivers/{id}/"]["get"]["responses"]["200"]["content"]["application/json"];
+export type DriverOnboardingRecord = components["schemas"]["DriverOnboarding"];
+export interface DriverRecord extends DriverOnboardingRecord {
+  attachments: File[];
+}
 
 // export type LicenseRecord = paths["/api/fleet/drivers/{id}"]
 
@@ -46,15 +48,18 @@ export interface DriverRecords {
 
 export function driverFactory(overrides?: DriverCreateType): DriverCreateType {
   const defaults = {
-    first_name: "",
-    last_name: "",
-    full_name: "",
-    dob: "",
-    utr_number: "",
-    vat_number: "",
-    phone_number: "",
-    email: "",
-    address: "",
+    driver: {
+      first_name: "",
+      last_name: "",
+      full_name: "",
+      dob: "",
+      utr_number: "",
+      vat_number: "",
+      phone_number: "",
+      email: "",
+      address: "",
+    },
+    licence_submission: {},
   };
 
   return {

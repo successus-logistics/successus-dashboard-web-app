@@ -12,5 +12,5 @@ async function getDrivers() {
 
 export default async function DriverProfilesPage() {
   const drivers = await getDrivers();
-  return <DriverProfilesTable initialDrivers={drivers} />;
+  return <DriverProfilesTable drivers={drivers} />;
 }

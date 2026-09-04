@@ -61,6 +61,7 @@ import {
 } from "../types";
 import { DriverProfileDialog } from "./driver-profile-dialog";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const driverViews = ["active", "deleted"] as const;
 
@@ -107,12 +108,7 @@ function matchesSearch(driver: PartialDriverRecord, normalizedQuery: string) {
   ].some((value) => value?.toLowerCase().includes(normalizedQuery));
 }
 
-export function DriverProfilesTable({
-  initialDrivers,
-}: {
-  initialDrivers: DriverRecord[];
-}) {
-  const [drivers, setDrivers] = React.useState(initialDrivers);
+export function DriverProfilesTable({ drivers }: { drivers: DriverRecord[] }) {
   const [view, setView] = React.useState<DriverView>("active");
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedIds, setSelectedIds] = React.useState<Set<string>>(
@@ -159,15 +155,11 @@ export function DriverProfilesTable({
     setIsProfileDialogOpen(true);
   }
 
-  async function saveDriver(driver: PartialDriverRecord) {
+  async function saveDriver() {
     setIsSaving(true);
 
     try {
       // TODO: POST NEW DRIVER
-      toast.success(
-        `${driver.full_name} was ${dialogMode === "add" ? "added" : "updated"} and saved locally.`,
-      );
-      return true;
     } catch (error) {
       toast.error(
         error instanceof Error
