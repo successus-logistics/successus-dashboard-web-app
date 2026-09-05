@@ -20,7 +20,6 @@ import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
 import FinacialFields from "./sections/financial-fields";
 
-
 export default function ManualForm({
   onOpenChange,
 }: {
@@ -50,13 +49,14 @@ export default function ManualForm({
 
   function update<
     K extends keyof NonNullable<DriverRecord>,
-    SK extends keyof NonNullable<DriverRecord[K]>
+    SK extends keyof NonNullable<DriverRecord[K]>,
   >(parentKey: K, subKey: SK, value: NonNullable<DriverRecord[K]>[SK]) {
     setDraft((current) => ({
-      ...current, [parentKey]: {
+      ...current,
+      [parentKey]: {
         ...current[parentKey],
         [subKey]: value,
-      }
+      },
     }));
   }
 
@@ -78,30 +78,39 @@ export default function ManualForm({
 
     // setIsSaving(true);
 
-    if (!formRef.current) return;
-
-    const vals = new FormData();
-    vals.append("driver", JSON.stringify(draft.driver))
-    vals.append("licence_submission", JSON.stringify(draft.licence_submission))
-    for (const [key, value] of Object.entries(draft.attachments)) {
-      vals.append(key, value)
-    }
-    for (const val of vals.entries()) {
-      console.log(val)
-    }
-    return null;
+    const data = {};
+    data["driver"] = draft.driver;
+    data["licence_submission"] = draft.licence_submission;
+    data["attachments"] = {};
+    for (const [key, value] of Object.entries(draft.attachments))
+      data["attachments"][key] = value.type;
 
     try {
       const saved = await fetch("/api/drivers/", {
         method: "POST",
-        body: JSON.stringify(vals),
+        body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
       });
       if (saved.ok) {
         const data = await saved.json();
-        toast.success("Successfully added new driver", data);
+        toast.success("Successfully added new driver");
+        console.log(data);
+        console.log(draft["attachments"]["licence_front_image"]);
+
+        const response = await fetch(data["licence_front_image"], {
+          method: "PUT",
+          body: draft["attachments"]["licence_front_image"],
+          headers: {
+            "Content-Type": draft["attachments"]["licence_front_image"].type,
+          },
+        });
+        if (response.ok) {
+          console.log("good");
+        }
+
+        return;
         onOpenChange(false);
         router.refresh();
       }
@@ -214,10 +223,16 @@ export default function ManualForm({
               </div>
             </TabsList>
             <TabsContent value="tab-personal">
-              <PersonalFields driver={draft.driver} onUpdate={(subKey, value) => update("driver", subKey, value)} />
+              <PersonalFields
+                driver={draft.driver}
+                onUpdate={(subKey, value) => update("driver", subKey, value)}
+              />
             </TabsContent>
             <TabsContent value="tab-license">
-              <LicenceFields licence={draft.licence_submission} onUpdate={update} />
+              <LicenceFields
+                licence={draft.licence_submission}
+                onUpdate={update}
+              />
             </TabsContent>
             <TabsContent value="tab-rtw">
               <RTWFields driver={draft} onUpdate={update} />

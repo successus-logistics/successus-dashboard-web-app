@@ -14,6 +14,20 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const access_token = request.cookies.get("access_token");
   const refresh_token = request.cookies.get("refresh_token");
+  
+  if (access_token){
+    const jwt = decodeJwtPayload(access_token.value)
+    if (jwt.exp * 1000 < Date.now()){
+      const loginUrl = new URL(loginRoute, request.url);
+      loginUrl.searchParams.set("next", pathname);
+      const response = NextResponse.redirect(loginUrl);
+      response.cookies.delete("access_token")
+      response.cookies.delete("refresh_token")
+      console.log("deco")
+      return response
+    }
+  }
+
 
   if (!access_token && !refresh_token && !pathname.includes("/auth")) {
     const loginUrl = new URL(loginRoute, request.url);

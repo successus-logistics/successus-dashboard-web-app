@@ -14,9 +14,7 @@ export async function POST(request: Request) {
       },
     });
 
-    return Response.json({
-      message: "Created Driver.",
-    });
+    return Response.json(response);
   } catch (error) {
     if (error instanceof HttpError) {
       console.error("received ${error.status} from downstream:`", error.data);
