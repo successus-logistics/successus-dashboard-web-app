@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import PersonalFields from "./sections/personal-fields";
-import LicenceFields from "./sections/license-fields";
+import LicenceFields, { LicenceType } from "./sections/license-fields";
 import RTWFields from "./sections/rtw-fields";
 
 import { toast } from "sonner";
@@ -19,6 +19,7 @@ import {
 import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
 import FinacialFields from "./sections/financial-fields";
+
 
 export default function ManualForm({
   onOpenChange,
@@ -47,8 +48,16 @@ export default function ManualForm({
   const formRef = useRef<HTMLFormElement>(null);
   console.log("draft", draft);
 
-  function update(pair: unknown) {
-    setDraft((current) => ({ ...current, pair }));
+  function update<
+    K extends keyof NonNullable<DriverRecord>,
+    SK extends keyof NonNullable<DriverRecord[K]>
+  >(parentKey: K, subKey: SK, value: NonNullable<DriverRecord[K]>[SK]) {
+    setDraft((current) => ({
+      ...current, [parentKey]: {
+        ...current[parentKey],
+        [subKey]: value,
+      }
+    }));
   }
 
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
@@ -67,21 +76,25 @@ export default function ManualForm({
       return;
     }
 
-    setIsSaving(true);
+    // setIsSaving(true);
 
     if (!formRef.current) return;
 
-    const vals = {};
-    for (const [key, value] of Object.entries(draft)) {
-      if (value) {
-        vals[key] = value;
-      }
+    const vals = new FormData();
+    vals.append("driver", JSON.stringify(draft.driver))
+    vals.append("licence_submission", JSON.stringify(draft.licence_submission))
+    for (const [key, value] of Object.entries(draft.attachments)) {
+      vals.append(key, value)
     }
+    for (const val of vals.entries()) {
+      console.log(val)
+    }
+    return null;
 
     try {
       const saved = await fetch("/api/drivers/", {
         method: "POST",
-        body: JSON.stringify({ driver: vals }),
+        body: JSON.stringify(vals),
         headers: {
           "Content-Type": "application/json",
         },
@@ -201,10 +214,10 @@ export default function ManualForm({
               </div>
             </TabsList>
             <TabsContent value="tab-personal">
-              <PersonalFields driver={draft.driver} onUpdate={update} />
+              <PersonalFields driver={draft.driver} onUpdate={(subKey, value) => update("driver", subKey, value)} />
             </TabsContent>
             <TabsContent value="tab-license">
-              <LicenceFields licence={draft} onUpdate={update} />
+              <LicenceFields licence={draft.licence_submission} onUpdate={update} />
             </TabsContent>
             <TabsContent value="tab-rtw">
               <RTWFields driver={draft} onUpdate={update} />

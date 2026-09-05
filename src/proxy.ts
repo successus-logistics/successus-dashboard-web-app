@@ -14,12 +14,26 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const access_token = request.cookies.get("access_token");
   const refresh_token = request.cookies.get("refresh_token");
+
   if (!access_token && !refresh_token && !pathname.includes("/auth")) {
     const loginUrl = new URL(loginRoute, request.url);
     loginUrl.searchParams.set("next", pathname);
     return NextResponse.redirect(loginUrl);
   }
+  const response = NextResponse.next();
+  if (refresh_token) {
+    const jwt = decodeJwtPayload(refresh_token.value)
+    if (jwt.exp * 1000 < Date.now()) {
+      const loginUrl = new URL(loginRoute, request.url);
+      loginUrl.searchParams.set("next", pathname);
+      const response = NextResponse.redirect(loginUrl);
+      response.cookies.delete("access_token")
+      response.cookies.delete("refresh_token")
+      console.log("deco")
+      return response
+    }
 
+  }
   if (!access_token && !refresh_token) {
     return;
   }
@@ -37,7 +51,6 @@ export async function proxy(request: NextRequest) {
     );
     if (refreshUrl.ok) {
       const access_token = await refreshUrl.json();
-      const response = NextResponse.next();
       response.cookies.set("access_token", access_token.access);
       return response;
     }

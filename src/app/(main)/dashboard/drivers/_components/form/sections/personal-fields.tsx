@@ -11,7 +11,7 @@ export default function PersonalFields({
   onUpdate,
 }: {
   driver: DriverRecord["driver"];
-  onUpdate: (key: keyof DriverRecord["driver"], value: unknown) => void;
+  onUpdate: <K extends keyof DriverRecord["driver"]>(key: K, value: DriverRecord["driver"][K]) => void;
 }) {
   return (
     <FormSection

@@ -13,16 +13,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+export type LicenceType = NonNullable<DriverRecord["licence_submission"]>
+
 interface LicenceProps {
   licence: DriverRecord["licence_submission"];
-  onUpdate: <K extends keyof NonNullable<DriverRecord["licence_submission"]>>(
+  onUpdate: <K extends keyof LicenceType>(
     key: K,
-    value: NonNullable<DriverRecord["licence_submission"]>[K],
+    value: LicenceType[K],
   ) => void;
 }
 
 export default function LicenceFields({ licence, onUpdate }: LicenceProps) {
   if (!licence) return null;
+  let licenceUpdate = (key, val) => onUpdate("licence_submission", key, val)
+  let attachmentUpdate = (key, val) => onUpdate("attachments", key, val)
   return (
     <FormSection
       title="2. Licence"
@@ -33,39 +37,39 @@ export default function LicenceFields({ licence, onUpdate }: LicenceProps) {
         label="Licence number"
         id="driver-licence-number"
         value={licence.licence_number}
-        onChange={(value) => onUpdate("licence_number", value)}
+        onChange={(value) => licenceUpdate("licence_number", value)}
       />
       <DriverField
         label="Issued Country"
         id="driver-licence-country"
         value={licence.licence_country}
-        onChange={(value) => onUpdate("licence_country", value)}
+        onChange={(value) => licenceUpdate("licence_country", value)}
       />
       <DriverDatePicker
         label="Issue date"
         id="driver-licence-issued"
         value={licence.licence_issue_date}
-        onChange={(value) => onUpdate("licence_issue_date", value)}
+        onChange={(value) => licenceUpdate("licence_issue_date", value)}
       />
       <DriverDatePicker
         label="Expiry date"
         id="driver-licence-expiry"
         value={licence.licence_expiry_date}
-        onChange={(value) => onUpdate("licence_expiry_date", value)}
+        onChange={(value) => licenceUpdate("licence_expiry_date", value)}
       />
       <DriverField
         label="Penalty points"
         id="driver-licence-points"
         type="number"
         value={licence.points}
-        onChange={(value) => onUpdate("points", Number(value))}
+        onChange={(value) => licenceUpdate("points", Number(value))}
       />
 
       <Field>
         <FieldLabel>Category</FieldLabel>
         <Select
           name="catogeries"
-          onValueChange={(value) => onUpdate("categories", value)}
+          onValueChange={(value) => licenceUpdate("categories", value)}
         >
           <SelectTrigger>
             <SelectValue placeholder="Select License Type" />
@@ -82,7 +86,7 @@ export default function LicenceFields({ licence, onUpdate }: LicenceProps) {
         <FileDropzone
           name="licence_front_image"
           allowed_ext={"pdf, jpg, jpeg, webP"}
-          onChange={(file) => onUpdate("licence_front_image", file)}
+          onChange={(file) => attachmentUpdate("licence_front_image", file)}
         />
       </Field>
       <Field className="col-span-full">
@@ -90,7 +94,7 @@ export default function LicenceFields({ licence, onUpdate }: LicenceProps) {
         <FileDropzone
           name="licence_back_image"
           allowed_ext={".png, .jpg, .jpeg, .webP"}
-          onChange={(value) => onUpdate("licence_back_image", value)}
+          onChange={(value) => attachmentUpdate("licence_back_image", value)}
         />
       </Field>
     </FormSection>

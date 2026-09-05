@@ -9,7 +9,6 @@ export interface DriverRecord extends DriverOnboardingRecord {
 
 // export type LicenseRecord = paths["/api/fleet/drivers/{id}"]
 
-export type LicenseType = paths["/api/fleet/drivers/"];
 
 export type EmploymentType = (typeof employmentTypes)[number];
 
