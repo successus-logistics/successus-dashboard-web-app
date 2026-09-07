@@ -1,13 +1,13 @@
 import { cn } from "@/lib/utils";
 import PersonalFields from "./sections/personal-fields";
-import LicenceFields, { LicenceType } from "./sections/license-fields";
+import LicenceFields from "./sections/license-fields";
 import RTWFields from "./sections/rtw-fields";
 
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { useRef, useState } from "react";
-import { driverFactory, DriverRecord, PartialDriverRecord } from "../../types";
+import { driverFactory, DriverRecord } from "../../types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   DialogClose,
@@ -27,8 +27,8 @@ export default function ManualForm({
 }) {
   // required sections
   const sections = {
-    personal: ["first_name", "last_name", "dob"],
-    license: [
+    driver: ["first_name", "last_name", "dob"],
+    licence_submission: [
       "licence_number",
       "licence_country",
       "licence_issue_date",
@@ -38,7 +38,7 @@ export default function ManualForm({
       "points",
       "categories",
     ],
-    rtw: ["passport no"],
+    rtw: ["passport_no"],
   } as const;
   const router = useRouter();
   const [isSaving, setIsSaving] = useState(false);
@@ -97,20 +97,21 @@ export default function ManualForm({
         const data = await saved.json();
         toast.success("Successfully added new driver");
         console.log(data);
-        console.log(draft["attachments"]["licence_front_image"]);
 
-        const response = await fetch(data["licence_front_image"], {
-          method: "PUT",
-          body: draft["attachments"]["licence_front_image"],
-          headers: {
-            "Content-Type": draft["attachments"]["licence_front_image"].type,
-          },
-        });
-        if (response.ok) {
-          console.log("good");
+        for (const [key, url] of Object.entries(data)) {
+
+          const response = await fetch(url, {
+            method: "PUT",
+            body: draft["attachments"][key],
+            headers: {
+              "Content-Type": draft["attachments"][key].type,
+            },
+          });
+          if (response.ok) {
+            console.log("good");
+          }
         }
 
-        return;
         onOpenChange(false);
         router.refresh();
       }
@@ -133,11 +134,16 @@ export default function ManualForm({
   }
 
   function getProgress(section: keyof typeof sections) {
-    const values = sections[section].map((field) => draft[field]);
+    console.log(draft[section], section)
+    const values = sections[section].map((field) => {
+      if (draft[section].hasOwnProperty(field)) {
+        return draft[section][field];
+      }
+    })
+    console.log(values, section)
     const filled = values.filter(
       (value) => value !== null && value !== "" && value !== undefined,
     ).length;
-
     if (filled === 0) return "incomplete";
     if (filled === sections[section].length) return "complete";
     return "partial";
@@ -190,10 +196,10 @@ export default function ManualForm({
                   <DriverProgressTab
                     tabNum={1}
                     tabTitle="Personal"
-                    tabStatus={getTabState("personal")}
+                    tabStatus={getTabState("driver")}
                   />
                 </TabsTrigger>
-                <DriverProgressBar status={getProgress("personal")} />
+                <DriverProgressBar status={getProgress("driver")} />
                 <TabsTrigger
                   value="tab-license"
                   className="flex-col h-10 bg-none! data-active:bg-none!"
@@ -201,10 +207,10 @@ export default function ManualForm({
                   <DriverProgressTab
                     tabNum={2}
                     tabTitle="License"
-                    tabStatus={getTabState("license")}
+                    tabStatus={getTabState("licence_submission")}
                   />
                 </TabsTrigger>
-                <DriverProgressBar status={getProgress("license")} />
+                <DriverProgressBar status={getProgress("licence_submission")} />
                 <TabsTrigger value="tab-rtw" className="flex-col h-10 bg-none!">
                   <DriverProgressTab
                     tabNum={3}

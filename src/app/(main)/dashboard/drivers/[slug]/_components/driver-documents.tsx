@@ -8,7 +8,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BrickWallShield } from "lucide-react";
-import { DetialField } from "./detail-field";
+import { DetialField } from "../../_components/detail-field";
 import { Badge } from "@/components/ui/badge";
 
 export default function DriverDocuments() {

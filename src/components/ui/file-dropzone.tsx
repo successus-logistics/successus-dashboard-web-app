@@ -11,7 +11,7 @@ export default function FileDropzone({
 }: {
   name: string;
   allowed_ext: string;
-  onChange: (file: FileList) => void;
+  onChange?: (file: FileList) => void;
 }) {
   const [fileSelected, setFileSelected] = useState("");
   return (
@@ -41,7 +41,7 @@ export default function FileDropzone({
         accept={allowed_ext}
         onChange={(e) => {
           setFileSelected(e.target.files[0].name ?? "");
-          onChange(e.target.files[0]!);
+          if (onChange) onChange(e.target.files[0]!);
         }}
         type="file"
         name={name}
