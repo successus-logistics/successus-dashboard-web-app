@@ -3,7 +3,8 @@ import { z } from "zod";
 import type { AuthCredentials, AuthSession } from "./auth.types";
 import { resolveAppRole } from "./resolve-app-role";
 
-const tokenEndpoint = `${process.env.API_URL}/api/token/`;
+const apiUrl = process.env.API_URL ?? "http://127.0.0.1:8000";
+const tokenEndpoint = `${apiUrl}/api/token/`;
 
 const tokenResponseSchema = z.object({
   access: z.string().min(1),
@@ -46,9 +47,7 @@ function decodeJwtPayload(token: string): unknown {
   }
 }
 
-export async function authenticateWithApi(
-  credentials: AuthCredentials,
-): Promise<AuthSession | null> {
+export async function authenticateWithApi(credentials: AuthCredentials): Promise<AuthSession | null> {
   let response: Response;
 
   try {

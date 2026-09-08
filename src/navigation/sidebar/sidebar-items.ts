@@ -2,11 +2,13 @@ import {
   Banknote,
   Calendar,
   ChartBar,
+  ChartGantt, // new icon
   CheckSquare,
+  ClipboardCheck,
+  FileText,
   Fingerprint,
   FolderOpen,
   Forklift,
-  ChartGantt, //new icon
   Gauge,
   GraduationCap,
   Kanban,
@@ -19,7 +21,6 @@ import {
   ReceiptText,
   Server,
   ShoppingBag,
-  FileText,
   SquareArrowUpRight,
   Users,
 } from "lucide-react";
@@ -105,6 +106,18 @@ export const sidebarItems: NavGroup[] = [
         url: "/dashboard/driver-profiles",
         icon: Users,
         badge: "soon",
+      },
+      {
+        id: "availability",
+        title: "Availability",
+        url: "/dashboard/availability",
+        icon: ClipboardCheck,
+      },
+      {
+        id: "availability-d",
+        title: "Availability-D",
+        url: "/dashboard/availability-d",
+        icon: Calendar,
       },
       {
         id: "crm",

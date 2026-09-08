@@ -2,12 +2,9 @@
 
 import { cookies } from "next/headers";
 
-const API_URL = process.env.API_URL!;
+const API_URL = process.env.API_URL ?? "http://127.0.0.1:8000";
 
-export async function apiFetch<T>(
-  path: string,
-  options: RequestInit = {},
-): Promise<T | null> {
+export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T | null> {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("access_token")?.value;
 
@@ -28,7 +25,7 @@ export async function apiFetch<T>(
   if (!response.ok) {
     let errorData = null;
     try {
-      errorData = response.json(); // Catch the 422/405 specific message
+      errorData = await response.json(); // Catch the 422/405 specific message
     } catch {
       errorData = { message: "Unknown downstream error" };
     }
