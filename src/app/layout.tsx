@@ -19,23 +19,21 @@ export const metadata: Metadata = {
 };
 
 async function coldStart() {
-  await fetch(`${process.env.API_URL}/api/health/`);
+  try {
+    await fetch(`${process.env.API_URL ?? "http://127.0.0.1:8000"}/api/health/`, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(5_000),
+    });
+  } catch {
+    // The dashboard can still render while the API is starting or unavailable.
+  }
 }
 
-export default async function RootLayout({
-  children,
-}: Readonly<{ children: ReactNode }>) {
-  const {
-    theme_mode,
-    theme_preset,
-    content_layout,
-    navbar_style,
-    sidebar_variant,
-    sidebar_collapsible,
-    font,
-  } = PREFERENCE_DEFAULTS;
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const { theme_mode, theme_preset, content_layout, navbar_style, sidebar_variant, sidebar_collapsible, font } =
+    PREFERENCE_DEFAULTS;
 
-  coldStart();
+  void coldStart();
 
   return (
     <html
