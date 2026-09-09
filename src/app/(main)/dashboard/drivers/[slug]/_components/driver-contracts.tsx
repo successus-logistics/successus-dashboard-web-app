@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
 
 const contracts = [
   {
@@ -46,44 +47,55 @@ const contracts = [
 
 export default function DriverContracts() {
   return (
-    <div className="grid gap-2">
-      <CardHeader className="flex items-center justify-between">
-        <CardTitle>Contracts</CardTitle>
-        <div>
-          <Badge>1/10</Badge>
-        </div>
+    <>
+      <CardHeader>
+        <CardTitle className="font-semibold ">Additional </CardTitle>
+        <CardDescription className="text-sm">
+          Any additional documents uploaded
+        </CardDescription>
+        <Separator />
       </CardHeader>
-      <CardContent className="gap-2 flex flex-col">
-        {contracts.map((contract) => (
-          <div
-            key={contract.name}
-            className="flex border rounded-lg items-center p-2"
-          >
-            <CardHeader className="w-1/2 flex items-center gap-3">
-              <Checkbox className="inline" />
-              <div>
-                <CardTitle>{contract.name}</CardTitle>
-                <CardDescription
-                  title={contract.description}
-                  className="line-clamp-1"
-                >
-                  {contract.description}
-                </CardDescription>
+      <Card className="h-full scrollbar-none p-2! grid">
+        <div className="grid gap-2">
+          <CardHeader className="flex items-center justify-between">
+            <CardTitle>Contracts</CardTitle>
+            <div>
+              <Badge>1/10</Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="gap-2 flex flex-col">
+            {contracts.map((contract) => (
+              <div
+                key={contract.name}
+                className="flex border rounded-lg items-center p-2"
+              >
+                <CardHeader className="w-1/2 flex items-center gap-3">
+                  <Checkbox className="inline" />
+                  <div>
+                    <CardTitle>{contract.name}</CardTitle>
+                    <CardDescription
+                      title={contract.description}
+                      className="line-clamp-1"
+                    >
+                      {contract.description}
+                    </CardDescription>
+                  </div>
+                </CardHeader>
+                <CardContent className="w-full grid grid-cols-4 items-center">
+                  <div>
+                    <Badge>{contract.status}</Badge>
+                  </div>
+                  <div>{contract.signed_date}</div>
+                  <Button variant={"link"} className="p-0 block text-start">
+                    attachment
+                  </Button>
+                  <div>{contract.contract_active}</div>
+                </CardContent>
               </div>
-            </CardHeader>
-            <CardContent className="w-full grid grid-cols-4 items-center">
-              <div>
-                <Badge>{contract.status}</Badge>
-              </div>
-              <div>{contract.signed_date}</div>
-              <Button variant={"link"} className="p-0 block text-start">
-                attachment
-              </Button>
-              <div>{contract.contract_active}</div>
-            </CardContent>
-          </div>
-        ))}
-      </CardContent>
-    </div>
+            ))}
+          </CardContent>
+        </div>
+      </Card>
+    </>
   );
 }

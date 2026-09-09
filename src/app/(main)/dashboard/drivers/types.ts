@@ -4,11 +4,16 @@ export const employmentTypes = ["employee", "contractor", "agency"] as const;
 
 export type DriverOnboardingRecord = components["schemas"]["DriverOnboarding"];
 export interface DriverRecord extends DriverOnboardingRecord {
-  attachments: File[];
+  licenceSubmission: DriverOnboardingRecord["licence_submission"] & {
+    attachments: Record<string, File>;
+  };
+  // Update this type later to extend not overwrite!!
+  legal: {
+    attachments: Record<string, File>;
+  };
 }
 
 // export type LicenseRecord = paths["/api/fleet/drivers/{id}"]
-
 
 export type EmploymentType = (typeof employmentTypes)[number];
 
@@ -57,8 +62,14 @@ export function driverFactory(overrides?: DriverCreateType): DriverCreateType {
       phone_number: "",
       email: "",
       address: "",
+      attachments: {},
     },
-    licence_submission: {},
+    licence_submission: {
+      attachments: {},
+    },
+    legal: {
+      attachments: {},
+    },
   };
 
   return {

@@ -28,17 +28,9 @@ export default function ManualForm({
   // required sections
   const sections = {
     driver: ["first_name", "last_name", "dob"],
-    licence_submission: [
-      "licence_number",
-      "licence_country",
-      "licence_issue_date",
-      "licence_expiry_date",
-      "licence_front_image",
-      "licence_back_image",
-      "points",
-      "categories",
-    ],
-    rtw: ["passport_no"],
+    licence_submission: ["licence_number", "licence_country"],
+    legal: ["document_type"],
+    finance: [],
   } as const;
   const router = useRouter();
   const [isSaving, setIsSaving] = useState(false);
@@ -80,10 +72,17 @@ export default function ManualForm({
 
     const data = {};
     data["driver"] = draft.driver;
-    data["licence_submission"] = draft.licence_submission;
-    data["attachments"] = {};
-    for (const [key, value] of Object.entries(draft.attachments))
-      data["attachments"][key] = value.type;
+    if (draft["licence_submission"]) {
+      data["licence_submission"] = {};
+      data["attachments"] = {};
+      for (const [key, value] of Object.entries(draft["licence_submission"])) {
+        console.log(key, value instanceof File);
+        if (value instanceof File) data["attachments"][key] = value.type;
+        else data["licence_submission"][key] = value;
+      }
+    }
+    console.log("finished data", data);
+    return;
 
     try {
       const saved = await fetch("/api/drivers/", {
@@ -99,7 +98,6 @@ export default function ManualForm({
         console.log(data);
 
         for (const [key, url] of Object.entries(data)) {
-
           const response = await fetch(url, {
             method: "PUT",
             body: draft["attachments"][key],
@@ -134,13 +132,9 @@ export default function ManualForm({
   }
 
   function getProgress(section: keyof typeof sections) {
-    console.log(draft[section], section)
     const values = sections[section].map((field) => {
-      if (draft[section].hasOwnProperty(field)) {
-        return draft[section][field];
-      }
-    })
-    console.log(values, section)
+      return draft[section][field];
+    });
     const filled = values.filter(
       (value) => value !== null && value !== "" && value !== undefined,
     ).length;
@@ -215,15 +209,15 @@ export default function ManualForm({
                   <DriverProgressTab
                     tabNum={3}
                     tabTitle="Right To Work"
-                    tabStatus={getTabState("rtw")}
+                    tabStatus={getTabState("legal")}
                   />
                 </TabsTrigger>
-                <DriverProgressBar status="incomplete" />
+                <DriverProgressBar status={getProgress("legal")} />
                 <TabsTrigger value="tab-tax" className="flex-col h-10 bg-none!">
                   <DriverProgressTab
                     tabNum={4}
                     tabTitle="Financial & Tax"
-                    tabStatus="incomplete"
+                    tabStatus={getTabState("finance")}
                   />
                 </TabsTrigger>
               </div>
@@ -241,7 +235,10 @@ export default function ManualForm({
               />
             </TabsContent>
             <TabsContent value="tab-rtw">
-              <RTWFields driver={draft} onUpdate={update} />
+              <RTWFields
+                data={draft.legal}
+                onUpdate={(subKey, value) => update("legal", subKey, value)}
+              />
             </TabsContent>
             <TabsContent value="tab-tax">
               <FinacialFields driver={draft} onUpdate={update} />

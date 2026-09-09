@@ -4,2175 +4,2180 @@
  */
 
 export interface paths {
-    "/api/clients/clients/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["clients_clients_retrieve"];
-        put?: never;
-        post: operations["clients_clients_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  "/api/clients/clients/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/clients/contracts/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["clients_contracts_retrieve"];
-        put?: never;
-        post: operations["clients_contracts_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["clients_clients_retrieve"];
+    put?: never;
+    post: operations["clients_clients_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/clients/contracts/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/fleet/drivers/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Lists all drivers or create new driver. */
-        get: operations["fleet_drivers_list"];
-        put?: never;
-        /** @description Lists all drivers or create new driver. */
-        post: operations["fleet_drivers_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["clients_contracts_retrieve"];
+    put?: never;
+    post: operations["clients_contracts_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/fleet/drivers/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/fleet/drivers{format}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Lists all drivers or create new driver. */
-        get: operations["fleet_drivers_formatted_list"];
-        put?: never;
-        /** @description Lists all drivers or create new driver. */
-        post: operations["fleet_drivers_formatted_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** @description Lists all drivers or create new driver. */
+    get: operations["fleet_drivers_list"];
+    put?: never;
+    /** @description Lists all drivers or create new driver. */
+    post: operations["fleet_drivers_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/fleet/drivers{format}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/fleet/drivers/{id}/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Get, update or delete driver. */
-        get: operations["fleet_drivers_retrieve"];
-        /** @description Get, update or delete driver. */
-        put: operations["fleet_drivers_update"];
-        post?: never;
-        /** @description Get, update or delete driver. */
-        delete: operations["fleet_drivers_destroy"];
-        options?: never;
-        head?: never;
-        /** @description Get, update or delete driver. */
-        patch: operations["fleet_drivers_partial_update"];
-        trace?: never;
+    /** @description Lists all drivers or create new driver. */
+    get: operations["fleet_drivers_formatted_list"];
+    put?: never;
+    /** @description Lists all drivers or create new driver. */
+    post: operations["fleet_drivers_formatted_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/fleet/drivers/{id}/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/fleet/drivers/{id}{format}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Get, update or delete driver. */
-        get: operations["fleet_drivers_formatted_retrieve"];
-        /** @description Get, update or delete driver. */
-        put: operations["fleet_drivers_formatted_update"];
-        post?: never;
-        /** @description Get, update or delete driver. */
-        delete: operations["fleet_drivers_formatted_destroy"];
-        options?: never;
-        head?: never;
-        /** @description Get, update or delete driver. */
-        patch: operations["fleet_drivers_formatted_partial_update"];
-        trace?: never;
+    /** @description Get, update or delete driver. */
+    get: operations["fleet_drivers_retrieve"];
+    /** @description Get, update or delete driver. */
+    put: operations["fleet_drivers_update"];
+    post?: never;
+    /** @description Get, update or delete driver. */
+    delete: operations["fleet_drivers_destroy"];
+    options?: never;
+    head?: never;
+    /** @description Get, update or delete driver. */
+    patch: operations["fleet_drivers_partial_update"];
+    trace?: never;
+  };
+  "/api/fleet/drivers/{id}{format}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/fleet/vehicles/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Lists all vehicles or create new vehicle. */
-        get: operations["fleet_vehicles_list"];
-        put?: never;
-        /** @description Lists all vehicles or create new vehicle. */
-        post: operations["fleet_vehicles_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** @description Get, update or delete driver. */
+    get: operations["fleet_drivers_formatted_retrieve"];
+    /** @description Get, update or delete driver. */
+    put: operations["fleet_drivers_formatted_update"];
+    post?: never;
+    /** @description Get, update or delete driver. */
+    delete: operations["fleet_drivers_formatted_destroy"];
+    options?: never;
+    head?: never;
+    /** @description Get, update or delete driver. */
+    patch: operations["fleet_drivers_formatted_partial_update"];
+    trace?: never;
+  };
+  "/api/fleet/vehicles/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/fleet/vehicles{format}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Lists all vehicles or create new vehicle. */
-        get: operations["fleet_vehicles_formatted_list"];
-        put?: never;
-        /** @description Lists all vehicles or create new vehicle. */
-        post: operations["fleet_vehicles_formatted_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** @description Lists all vehicles or create new vehicle. */
+    get: operations["fleet_vehicles_list"];
+    put?: never;
+    /** @description Lists all vehicles or create new vehicle. */
+    post: operations["fleet_vehicles_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/fleet/vehicles{format}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/fleet/vehicles/{id}/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Lists all vehicles or create new vehicle. */
-        get: operations["fleet_vehicles_retrieve"];
-        /** @description Lists all vehicles or create new vehicle. */
-        put: operations["fleet_vehicles_update"];
-        post?: never;
-        /** @description Lists all vehicles or create new vehicle. */
-        delete: operations["fleet_vehicles_destroy"];
-        options?: never;
-        head?: never;
-        /** @description Lists all vehicles or create new vehicle. */
-        patch: operations["fleet_vehicles_partial_update"];
-        trace?: never;
+    /** @description Lists all vehicles or create new vehicle. */
+    get: operations["fleet_vehicles_formatted_list"];
+    put?: never;
+    /** @description Lists all vehicles or create new vehicle. */
+    post: operations["fleet_vehicles_formatted_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/fleet/vehicles/{id}/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/fleet/vehicles/{id}{format}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Lists all vehicles or create new vehicle. */
-        get: operations["fleet_vehicles_formatted_retrieve"];
-        /** @description Lists all vehicles or create new vehicle. */
-        put: operations["fleet_vehicles_formatted_update"];
-        post?: never;
-        /** @description Lists all vehicles or create new vehicle. */
-        delete: operations["fleet_vehicles_formatted_destroy"];
-        options?: never;
-        head?: never;
-        /** @description Lists all vehicles or create new vehicle. */
-        patch: operations["fleet_vehicles_formatted_partial_update"];
-        trace?: never;
+    /** @description Lists all vehicles or create new vehicle. */
+    get: operations["fleet_vehicles_retrieve"];
+    /** @description Lists all vehicles or create new vehicle. */
+    put: operations["fleet_vehicles_update"];
+    post?: never;
+    /** @description Lists all vehicles or create new vehicle. */
+    delete: operations["fleet_vehicles_destroy"];
+    options?: never;
+    head?: never;
+    /** @description Lists all vehicles or create new vehicle. */
+    patch: operations["fleet_vehicles_partial_update"];
+    trace?: never;
+  };
+  "/api/fleet/vehicles/{id}{format}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/health/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["health_retrieve"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** @description Lists all vehicles or create new vehicle. */
+    get: operations["fleet_vehicles_formatted_retrieve"];
+    /** @description Lists all vehicles or create new vehicle. */
+    put: operations["fleet_vehicles_formatted_update"];
+    post?: never;
+    /** @description Lists all vehicles or create new vehicle. */
+    delete: operations["fleet_vehicles_formatted_destroy"];
+    options?: never;
+    head?: never;
+    /** @description Lists all vehicles or create new vehicle. */
+    patch: operations["fleet_vehicles_formatted_partial_update"];
+    trace?: never;
+  };
+  "/api/health/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/invoices/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["invoices_retrieve"];
-        put?: never;
-        post: operations["invoices_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["health_retrieve"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/invoices/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/onboarding/drivers/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Lists all drivers or create new driver. */
-        get: operations["onboarding_drivers_list"];
-        put?: never;
-        /** @description Lists all drivers or create new driver. */
-        post: operations["onboarding_drivers_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["invoices_retrieve"];
+    put?: never;
+    post: operations["invoices_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/onboarding/drivers/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/onboarding/drivers{format}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** @description Lists all drivers or create new driver. */
-        get: operations["onboarding_drivers_formatted_list"];
-        put?: never;
-        /** @description Lists all drivers or create new driver. */
-        post: operations["onboarding_drivers_formatted_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** @description Lists all drivers or create new driver. */
+    get: operations["onboarding_drivers_list"];
+    put?: never;
+    /** @description Lists all drivers or create new driver. */
+    post: operations["onboarding_drivers_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/onboarding/drivers{format}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/timesheets/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["timesheets_retrieve"];
-        put?: never;
-        post: operations["timesheets_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** @description Lists all drivers or create new driver. */
+    get: operations["onboarding_drivers_formatted_list"];
+    put?: never;
+    /** @description Lists all drivers or create new driver. */
+    post: operations["onboarding_drivers_formatted_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/timesheets/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/timesheets/{timesheet_batch_id}/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["timesheets_retrieve_2"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["timesheets_retrieve"];
+    put?: never;
+    post: operations["timesheets_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/timesheets/{timesheet_batch_id}/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/timesheets/{timesheet_batch_id}/adjustments/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["timesheets_adjustments_retrieve"];
-        put?: never;
-        post: operations["timesheets_adjustments_create"];
-        delete: operations["timesheets_adjustments_destroy"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["timesheets_retrieve_2"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/timesheets/{timesheet_batch_id}/adjustments/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/timesheets/{timesheet_id}/adjustments/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["timesheets_adjustments_retrieve_2"];
-        put?: never;
-        post: operations["timesheets_adjustments_create_2"];
-        delete: operations["timesheets_adjustments_destroy_2"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["timesheets_adjustments_retrieve"];
+    put?: never;
+    post: operations["timesheets_adjustments_create"];
+    delete: operations["timesheets_adjustments_destroy"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/timesheets/{timesheet_id}/adjustments/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/timesheets/configs/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["timesheets_configs_retrieve"];
-        put?: never;
-        post: operations["timesheets_configs_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["timesheets_adjustments_retrieve_2"];
+    put?: never;
+    post: operations["timesheets_adjustments_create_2"];
+    delete: operations["timesheets_adjustments_destroy_2"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/timesheets/configs/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/todo-notes/notes/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["todo_notes_notes_list"];
-        put?: never;
-        post: operations["todo_notes_notes_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["timesheets_configs_retrieve"];
+    put?: never;
+    post: operations["timesheets_configs_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/todo-notes/notes/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/todo-notes/notes/{id}/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["todo_notes_notes_retrieve"];
-        put: operations["todo_notes_notes_update"];
-        post?: never;
-        delete: operations["todo_notes_notes_destroy"];
-        options?: never;
-        head?: never;
-        patch: operations["todo_notes_notes_partial_update"];
-        trace?: never;
+    get: operations["todo_notes_notes_list"];
+    put?: never;
+    post: operations["todo_notes_notes_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/todo-notes/notes/{id}/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/todo-notes/tasks/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["todo_notes_tasks_list"];
-        put?: never;
-        post: operations["todo_notes_tasks_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["todo_notes_notes_retrieve"];
+    put: operations["todo_notes_notes_update"];
+    post?: never;
+    delete: operations["todo_notes_notes_destroy"];
+    options?: never;
+    head?: never;
+    patch: operations["todo_notes_notes_partial_update"];
+    trace?: never;
+  };
+  "/api/todo-notes/tasks/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/todo-notes/tasks/{id}/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["todo_notes_tasks_retrieve"];
-        put: operations["todo_notes_tasks_update"];
-        post?: never;
-        delete: operations["todo_notes_tasks_destroy"];
-        options?: never;
-        head?: never;
-        patch: operations["todo_notes_tasks_partial_update"];
-        trace?: never;
+    get: operations["todo_notes_tasks_list"];
+    put?: never;
+    post: operations["todo_notes_tasks_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/todo-notes/tasks/{id}/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/todo-notes/tasks/{task_id}/comments/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["todo_notes_tasks_comments_list"];
-        put?: never;
-        post: operations["todo_notes_tasks_comments_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["todo_notes_tasks_retrieve"];
+    put: operations["todo_notes_tasks_update"];
+    post?: never;
+    delete: operations["todo_notes_tasks_destroy"];
+    options?: never;
+    head?: never;
+    patch: operations["todo_notes_tasks_partial_update"];
+    trace?: never;
+  };
+  "/api/todo-notes/tasks/{task_id}/comments/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/todo-notes/tasks/{task_id}/comments/{id}/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["todo_notes_tasks_comments_retrieve"];
-        put?: never;
-        post?: never;
-        delete: operations["todo_notes_tasks_comments_destroy"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["todo_notes_tasks_comments_list"];
+    put?: never;
+    post: operations["todo_notes_tasks_comments_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/todo-notes/tasks/{task_id}/comments/{id}/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/token/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * @description Takes a set of user credentials and returns an access and refresh JSON web
-         *     token pair to prove the authentication of those credentials.
-         */
-        post: operations["token_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get: operations["todo_notes_tasks_comments_retrieve"];
+    put?: never;
+    post?: never;
+    delete: operations["todo_notes_tasks_comments_destroy"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/token/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/token/refresh/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * @description Takes a refresh type JSON web token and returns an access type JSON web
-         *     token if the refresh token is valid.
-         */
-        post: operations["token_refresh_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * @description Takes a set of user credentials and returns an access and refresh JSON web
+     *     token pair to prove the authentication of those credentials.
+     */
+    post: operations["token_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/token/refresh/": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    get?: never;
+    put?: never;
+    /**
+     * @description Takes a refresh type JSON web token and returns an access type JSON web
+     *     token if the refresh token is valid.
+     */
+    post: operations["token_refresh_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
-        /**
-         * @description * `SMALL_VAN` - Smallest Van
-         *     * `SWB_VAN` - Short-wheelbase Van
-         *     * `LWB_VAN` - Long-wheelbase Van
-         *     * `XLWB_VAN` - Extra-long wheelbase Van
-         * @enum {string}
-         */
-        CategoryEnum: "SMALL_VAN" | "SWB_VAN" | "LWB_VAN" | "XLWB_VAN";
-        Driver: {
-            /** Format: uuid */
-            readonly id: string;
-            first_name?: string | null;
-            last_name?: string | null;
-            full_name: string;
-            phone_number?: string;
-            email?: (string) | null;
-            /** Format: date */
-            dob?: string | null;
-            address?: string | null;
-            utr?: (string) | null;
-            vat?: (string) | null;
-            ni_number?: (string) | null;
-            emergency_contact_name?: string | null;
-            emergency_contact_relationship?: string | null;
-            emergency_contact_phone_number?: string;
-            bank_account_name?: string | null;
-            bank_account_number?: (string) | null;
-            bank_sort_code?: (string) | null;
-            active?: boolean;
-            /** Format: date-time */
-            readonly created_at: string;
-            /** Format: date-time */
-            readonly updated_at: string;
-            created_by?: number | null;
-            updated_by?: number | null;
-        };
-        DriverOnboarding: {
-            driver: components["schemas"]["Driver"];
-            licence_submission?: components["schemas"]["LicenceSubmission"];
-        };
-        /**
-         * @description * `AUTOMATIC` - Automatic
-         *     * `MANUAL` - Manual
-         * @enum {string}
-         */
-        GearboxEnum: "AUTOMATIC" | "MANUAL";
-        LicenceSubmission: {
-            readonly id: number;
-            licence_number: string;
-            licence_country: string;
-            /** Format: date */
-            licence_issue_date: string;
-            /** Format: date */
-            licence_expiry_date: string;
-            /** Format: uri */
-            licence_front_image?: string | null;
-            /** Format: uri */
-            licence_back_image?: string | null;
-            /** Format: int64 */
-            points: number;
-            categories: string;
-            status?: components["schemas"]["LicenceSubmissionStatusEnum"];
-            verification_method: components["schemas"]["VerificationMethodEnum"];
-            /** Format: date-time */
-            verified_at?: string | null;
-            /** Format: date-time */
-            readonly created_at: string;
-            /** Format: uuid */
-            driver: string;
-            driving_licence?: number | null;
-            verified_by?: number | null;
-        };
-        /**
-         * @description * `APPROVED` - License Passed Checks
-         *     * `REJECTED` - License Failed Checks
-         *     * `PENDING` - Document not submitted
-         * @enum {string}
-         */
-        LicenceSubmissionStatusEnum: "APPROVED" | "REJECTED" | "PENDING";
-        MyTokenObtainPair: {
-            username: string;
-            password: string;
-        };
-        Note: {
-            /** Format: uuid */
-            readonly id: string;
-            title: string;
-            content?: string;
-            readonly owner: number;
-            visibility?: components["schemas"]["VisibilityEnum"];
-            shared_with?: number[];
-            /** Format: date-time */
-            readonly created_at: string;
-            /** Format: date-time */
-            readonly updated_at: string;
-        };
-        /**
-         * @description * `OWNED` - Owned
-         *     * `RENTED` - Rented
-         * @enum {string}
-         */
-        OwnershipTypeEnum: "OWNED" | "RENTED";
-        PatchedDriver: {
-            /** Format: uuid */
-            readonly id?: string;
-            first_name?: string | null;
-            last_name?: string | null;
-            full_name?: string;
-            phone_number?: string;
-            email?: (string) | null;
-            /** Format: date */
-            dob?: string | null;
-            address?: string | null;
-            utr?: (string) | null;
-            vat?: (string) | null;
-            ni_number?: (string) | null;
-            emergency_contact_name?: string | null;
-            emergency_contact_relationship?: string | null;
-            emergency_contact_phone_number?: string;
-            bank_account_name?: string | null;
-            bank_account_number?: (string) | null;
-            bank_sort_code?: (string) | null;
-            active?: boolean;
-            /** Format: date-time */
-            readonly created_at?: string;
-            /** Format: date-time */
-            readonly updated_at?: string;
-            created_by?: number | null;
-            updated_by?: number | null;
-        };
-        PatchedNote: {
-            /** Format: uuid */
-            readonly id?: string;
-            title?: string;
-            content?: string;
-            readonly owner?: number;
-            visibility?: components["schemas"]["VisibilityEnum"];
-            shared_with?: number[];
-            /** Format: date-time */
-            readonly created_at?: string;
-            /** Format: date-time */
-            readonly updated_at?: string;
-        };
-        PatchedTask: {
-            /** Format: uuid */
-            readonly id?: string;
-            title?: string;
-            content?: string;
-            readonly owner?: number;
-            visibility?: components["schemas"]["VisibilityEnum"];
-            shared_with?: number[];
-            status?: components["schemas"]["TaskStatusEnum"];
-            priority?: components["schemas"]["PriorityEnum"];
-            /** Format: date-time */
-            due_date?: string | null;
-            readonly is_overdue?: boolean;
-            /** Format: date-time */
-            readonly created_at?: string;
-            /** Format: date-time */
-            readonly updated_at?: string;
-        };
-        PatchedVehicle: {
-            readonly id?: number;
-            category?: components["schemas"]["CategoryEnum"];
-            vin?: string | null;
-            registration_plate?: string;
-            make?: string;
-            model?: string;
-            /** Format: int64 */
-            year?: number;
-            /** Format: decimal */
-            purchase_value?: string | null;
-            fuel_type?: string;
-            gearbox?: components["schemas"]["GearboxEnum"];
-            ownership_type?: components["schemas"]["OwnershipTypeEnum"];
-            status?: components["schemas"]["VehicleStatusEnum"];
-            /** Format: date-time */
-            readonly created_at?: string;
-        };
-        /**
-         * @description * `low` - Low
-         *     * `medium` - Medium
-         *     * `high` - High
-         * @enum {string}
-         */
-        PriorityEnum: "low" | "medium" | "high";
-        Task: {
-            /** Format: uuid */
-            readonly id: string;
-            title: string;
-            content?: string;
-            readonly owner: number;
-            visibility?: components["schemas"]["VisibilityEnum"];
-            shared_with?: number[];
-            status?: components["schemas"]["TaskStatusEnum"];
-            priority?: components["schemas"]["PriorityEnum"];
-            /** Format: date-time */
-            due_date?: string | null;
-            readonly is_overdue: boolean;
-            /** Format: date-time */
-            readonly created_at: string;
-            /** Format: date-time */
-            readonly updated_at: string;
-        };
-        TaskComment: {
-            /** Format: uuid */
-            readonly id: string;
-            /** Format: uuid */
-            readonly task: string;
-            readonly author: number;
-            /** Format: uuid */
-            parent_comment?: string | null;
-            content: string;
-            /** Format: date-time */
-            readonly created_at: string;
-            /** Format: date-time */
-            readonly updated_at: string;
-        };
-        /**
-         * @description * `backlog` - Backlog
-         *     * `todo` - To do
-         *     * `in_progress` - In progress
-         *     * `completed` - Completed
-         *     * `canceled` - Canceled
-         * @enum {string}
-         */
-        TaskStatusEnum: "backlog" | "todo" | "in_progress" | "completed" | "canceled";
-        TokenRefresh: {
-            readonly access: string;
-            refresh: string;
-        };
-        Vehicle: {
-            readonly id: number;
-            category: components["schemas"]["CategoryEnum"];
-            vin?: string | null;
-            registration_plate: string;
-            make: string;
-            model: string;
-            /** Format: int64 */
-            year: number;
-            /** Format: decimal */
-            purchase_value?: string | null;
-            fuel_type?: string;
-            gearbox: components["schemas"]["GearboxEnum"];
-            ownership_type: components["schemas"]["OwnershipTypeEnum"];
-            status: components["schemas"]["VehicleStatusEnum"];
-            /** Format: date-time */
-            readonly created_at: string;
-        };
-        /**
-         * @description * `ACTIVE` - Active
-         *     * `VOID` - Void
-         * @enum {string}
-         */
-        VehicleStatusEnum: "ACTIVE" | "VOID";
-        /**
-         * @description * `MANUAL_REVIEW` - Reviewed and verified manually by manager
-         *     * `SELF_SERVICE` - Verified via the self-service onboarding process
-         *     * `SEMI_SERVICE` - Partially setup by manager and verified via the automated onboarding service
-         * @enum {string}
-         */
-        VerificationMethodEnum: "MANUAL_REVIEW" | "SELF_SERVICE" | "SEMI_SERVICE";
-        /**
-         * @description * `private` - Private
-         *     * `shared` - Shared
-         *     * `public` - Public
-         * @enum {string}
-         */
-        VisibilityEnum: "private" | "shared" | "public";
+  schemas: {
+    /**
+     * @description * `SMALL_VAN` - Smallest Van
+     *     * `SWB_VAN` - Short-wheelbase Van
+     *     * `LWB_VAN` - Long-wheelbase Van
+     *     * `XLWB_VAN` - Extra-long wheelbase Van
+     * @enum {string}
+     */
+    CategoryEnum: "SMALL_VAN" | "SWB_VAN" | "LWB_VAN" | "XLWB_VAN";
+    Driver: {
+      /** Format: uuid */
+      readonly id: string;
+      first_name?: string | null;
+      last_name?: string | null;
+      full_name: string;
+      phone_number?: string;
+      email?: string | null;
+      /** Format: date */
+      dob?: string | null;
+      address?: string | null;
+      utr?: string | null;
+      vat?: string | null;
+      ni_number?: string | null;
+      emergency_contact_name?: string | null;
+      emergency_contact_relationship?: string | null;
+      emergency_contact_phone_number?: string;
+      bank_account_name?: string | null;
+      bank_account_number?: string | null;
+      bank_sort_code?: string | null;
+      active?: boolean;
+      /** Format: date-time */
+      readonly created_at: string;
+      /** Format: date-time */
+      readonly updated_at: string;
+      created_by?: number | null;
+      updated_by?: number | null;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    DriverOnboarding: {
+      driver: components["schemas"]["Driver"];
+      licence_submission?: components["schemas"]["LicenceSubmission"];
+    };
+    /**
+     * @description * `AUTOMATIC` - Automatic
+     *     * `MANUAL` - Manual
+     * @enum {string}
+     */
+    GearboxEnum: "AUTOMATIC" | "MANUAL";
+    LicenceSubmission: {
+      readonly id: number;
+      licence_number: string;
+      licence_country: string;
+      /** Format: date */
+      licence_issue_date: string;
+      /** Format: date */
+      licence_expiry_date: string;
+      /** Format: uri */
+      licence_front_image?: File | null;
+      /** Format: uri */
+      licence_back_image?: File | null;
+      /** Format: int64 */
+      points: number;
+      categories: string;
+      status?: components["schemas"]["LicenceSubmissionStatusEnum"];
+      verification_method: components["schemas"]["VerificationMethodEnum"];
+      /** Format: date-time */
+      verified_at?: string | null;
+      /** Format: date-time */
+      readonly created_at: string;
+      /** Format: uuid */
+      driver: string;
+      driving_licence?: number | null;
+      verified_by?: number | null;
+    };
+    /**
+     * @description * `APPROVED` - License Passed Checks
+     *     * `REJECTED` - License Failed Checks
+     *     * `PENDING` - Document not submitted
+     * @enum {string}
+     */
+    LicenceSubmissionStatusEnum: "APPROVED" | "REJECTED" | "PENDING";
+    MyTokenObtainPair: {
+      username: string;
+      password: string;
+    };
+    Note: {
+      /** Format: uuid */
+      readonly id: string;
+      title: string;
+      content?: string;
+      readonly owner: number;
+      visibility?: components["schemas"]["VisibilityEnum"];
+      shared_with?: number[];
+      /** Format: date-time */
+      readonly created_at: string;
+      /** Format: date-time */
+      readonly updated_at: string;
+    };
+    /**
+     * @description * `OWNED` - Owned
+     *     * `RENTED` - Rented
+     * @enum {string}
+     */
+    OwnershipTypeEnum: "OWNED" | "RENTED";
+    PatchedDriver: {
+      /** Format: uuid */
+      readonly id?: string;
+      first_name?: string | null;
+      last_name?: string | null;
+      full_name?: string;
+      phone_number?: string;
+      email?: string | null;
+      /** Format: date */
+      dob?: string | null;
+      address?: string | null;
+      utr?: string | null;
+      vat?: string | null;
+      ni_number?: string | null;
+      emergency_contact_name?: string | null;
+      emergency_contact_relationship?: string | null;
+      emergency_contact_phone_number?: string;
+      bank_account_name?: string | null;
+      bank_account_number?: string | null;
+      bank_sort_code?: string | null;
+      active?: boolean;
+      /** Format: date-time */
+      readonly created_at?: string;
+      /** Format: date-time */
+      readonly updated_at?: string;
+      created_by?: number | null;
+      updated_by?: number | null;
+    };
+    PatchedNote: {
+      /** Format: uuid */
+      readonly id?: string;
+      title?: string;
+      content?: string;
+      readonly owner?: number;
+      visibility?: components["schemas"]["VisibilityEnum"];
+      shared_with?: number[];
+      /** Format: date-time */
+      readonly created_at?: string;
+      /** Format: date-time */
+      readonly updated_at?: string;
+    };
+    PatchedTask: {
+      /** Format: uuid */
+      readonly id?: string;
+      title?: string;
+      content?: string;
+      readonly owner?: number;
+      visibility?: components["schemas"]["VisibilityEnum"];
+      shared_with?: number[];
+      status?: components["schemas"]["TaskStatusEnum"];
+      priority?: components["schemas"]["PriorityEnum"];
+      /** Format: date-time */
+      due_date?: string | null;
+      readonly is_overdue?: boolean;
+      /** Format: date-time */
+      readonly created_at?: string;
+      /** Format: date-time */
+      readonly updated_at?: string;
+    };
+    PatchedVehicle: {
+      readonly id?: number;
+      category?: components["schemas"]["CategoryEnum"];
+      vin?: string | null;
+      registration_plate?: string;
+      make?: string;
+      model?: string;
+      /** Format: int64 */
+      year?: number;
+      /** Format: decimal */
+      purchase_value?: string | null;
+      fuel_type?: string;
+      gearbox?: components["schemas"]["GearboxEnum"];
+      ownership_type?: components["schemas"]["OwnershipTypeEnum"];
+      status?: components["schemas"]["VehicleStatusEnum"];
+      /** Format: date-time */
+      readonly created_at?: string;
+    };
+    /**
+     * @description * `low` - Low
+     *     * `medium` - Medium
+     *     * `high` - High
+     * @enum {string}
+     */
+    PriorityEnum: "low" | "medium" | "high";
+    Task: {
+      /** Format: uuid */
+      readonly id: string;
+      title: string;
+      content?: string;
+      readonly owner: number;
+      visibility?: components["schemas"]["VisibilityEnum"];
+      shared_with?: number[];
+      status?: components["schemas"]["TaskStatusEnum"];
+      priority?: components["schemas"]["PriorityEnum"];
+      /** Format: date-time */
+      due_date?: string | null;
+      readonly is_overdue: boolean;
+      /** Format: date-time */
+      readonly created_at: string;
+      /** Format: date-time */
+      readonly updated_at: string;
+    };
+    TaskComment: {
+      /** Format: uuid */
+      readonly id: string;
+      /** Format: uuid */
+      readonly task: string;
+      readonly author: number;
+      /** Format: uuid */
+      parent_comment?: string | null;
+      content: string;
+      /** Format: date-time */
+      readonly created_at: string;
+      /** Format: date-time */
+      readonly updated_at: string;
+    };
+    /**
+     * @description * `backlog` - Backlog
+     *     * `todo` - To do
+     *     * `in_progress` - In progress
+     *     * `completed` - Completed
+     *     * `canceled` - Canceled
+     * @enum {string}
+     */
+    TaskStatusEnum:
+      | "backlog"
+      | "todo"
+      | "in_progress"
+      | "completed"
+      | "canceled";
+    TokenRefresh: {
+      readonly access: string;
+      refresh: string;
+    };
+    Vehicle: {
+      readonly id: number;
+      category: components["schemas"]["CategoryEnum"];
+      vin?: string | null;
+      registration_plate: string;
+      make: string;
+      model: string;
+      /** Format: int64 */
+      year: number;
+      /** Format: decimal */
+      purchase_value?: string | null;
+      fuel_type?: string;
+      gearbox: components["schemas"]["GearboxEnum"];
+      ownership_type: components["schemas"]["OwnershipTypeEnum"];
+      status: components["schemas"]["VehicleStatusEnum"];
+      /** Format: date-time */
+      readonly created_at: string;
+    };
+    /**
+     * @description * `ACTIVE` - Active
+     *     * `VOID` - Void
+     * @enum {string}
+     */
+    VehicleStatusEnum: "ACTIVE" | "VOID";
+    /**
+     * @description * `MANUAL_REVIEW` - Reviewed and verified manually by manager
+     *     * `SELF_SERVICE` - Verified via the self-service onboarding process
+     *     * `SEMI_SERVICE` - Partially setup by manager and verified via the automated onboarding service
+     * @enum {string}
+     */
+    VerificationMethodEnum: "MANUAL_REVIEW" | "SELF_SERVICE" | "SEMI_SERVICE";
+    /**
+     * @description * `private` - Private
+     *     * `shared` - Shared
+     *     * `public` - Public
+     * @enum {string}
+     */
+    VisibilityEnum: "private" | "shared" | "public";
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    clients_clients_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    clients_clients_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    clients_contracts_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    clients_contracts_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    fleet_drivers_list: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Driver"][];
-                };
-            };
-        };
-    };
-    fleet_drivers_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Driver"];
-                "application/x-www-form-urlencoded": components["schemas"]["Driver"];
-                "multipart/form-data": components["schemas"]["Driver"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Driver"];
-                };
-            };
-        };
-    };
-    fleet_drivers_formatted_list: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Driver"][];
-                };
-            };
-        };
-    };
-    fleet_drivers_formatted_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Driver"];
-                "application/x-www-form-urlencoded": components["schemas"]["Driver"];
-                "multipart/form-data": components["schemas"]["Driver"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Driver"];
-                };
-            };
-        };
-    };
-    fleet_drivers_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Driver"];
-                };
-            };
-        };
-    };
-    fleet_drivers_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Driver"];
-                "application/x-www-form-urlencoded": components["schemas"]["Driver"];
-                "multipart/form-data": components["schemas"]["Driver"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Driver"];
-                };
-            };
-        };
-    };
-    fleet_drivers_destroy: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    fleet_drivers_partial_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["PatchedDriver"];
-                "application/x-www-form-urlencoded": components["schemas"]["PatchedDriver"];
-                "multipart/form-data": components["schemas"]["PatchedDriver"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Driver"];
-                };
-            };
-        };
-    };
-    fleet_drivers_formatted_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Driver"];
-                };
-            };
-        };
-    };
-    fleet_drivers_formatted_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Driver"];
-                "application/x-www-form-urlencoded": components["schemas"]["Driver"];
-                "multipart/form-data": components["schemas"]["Driver"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Driver"];
-                };
-            };
-        };
-    };
-    fleet_drivers_formatted_destroy: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    fleet_drivers_formatted_partial_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["PatchedDriver"];
-                "application/x-www-form-urlencoded": components["schemas"]["PatchedDriver"];
-                "multipart/form-data": components["schemas"]["PatchedDriver"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Driver"];
-                };
-            };
-        };
-    };
-    fleet_vehicles_list: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Vehicle"][];
-                };
-            };
-        };
-    };
-    fleet_vehicles_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Vehicle"];
-                "application/x-www-form-urlencoded": components["schemas"]["Vehicle"];
-                "multipart/form-data": components["schemas"]["Vehicle"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Vehicle"];
-                };
-            };
-        };
-    };
-    fleet_vehicles_formatted_list: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Vehicle"][];
-                };
-            };
-        };
-    };
-    fleet_vehicles_formatted_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Vehicle"];
-                "application/x-www-form-urlencoded": components["schemas"]["Vehicle"];
-                "multipart/form-data": components["schemas"]["Vehicle"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Vehicle"];
-                };
-            };
-        };
-    };
-    fleet_vehicles_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Vehicle"];
-                };
-            };
-        };
-    };
-    fleet_vehicles_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Vehicle"];
-                "application/x-www-form-urlencoded": components["schemas"]["Vehicle"];
-                "multipart/form-data": components["schemas"]["Vehicle"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Vehicle"];
-                };
-            };
-        };
-    };
-    fleet_vehicles_destroy: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    fleet_vehicles_partial_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["PatchedVehicle"];
-                "application/x-www-form-urlencoded": components["schemas"]["PatchedVehicle"];
-                "multipart/form-data": components["schemas"]["PatchedVehicle"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Vehicle"];
-                };
-            };
-        };
-    };
-    fleet_vehicles_formatted_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Vehicle"];
-                };
-            };
-        };
-    };
-    fleet_vehicles_formatted_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Vehicle"];
-                "application/x-www-form-urlencoded": components["schemas"]["Vehicle"];
-                "multipart/form-data": components["schemas"]["Vehicle"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Vehicle"];
-                };
-            };
-        };
-    };
-    fleet_vehicles_formatted_destroy: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    fleet_vehicles_formatted_partial_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["PatchedVehicle"];
-                "application/x-www-form-urlencoded": components["schemas"]["PatchedVehicle"];
-                "multipart/form-data": components["schemas"]["PatchedVehicle"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Vehicle"];
-                };
-            };
-        };
-    };
-    health_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    invoices_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    invoices_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    onboarding_drivers_list: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DriverOnboarding"][];
-                };
-            };
-        };
-    };
-    onboarding_drivers_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["DriverOnboarding"];
-                "application/x-www-form-urlencoded": components["schemas"]["DriverOnboarding"];
-                "multipart/form-data": components["schemas"]["DriverOnboarding"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DriverOnboarding"];
-                };
-            };
-        };
-    };
-    onboarding_drivers_formatted_list: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DriverOnboarding"][];
-                };
-            };
-        };
-    };
-    onboarding_drivers_formatted_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                format: ".json";
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["DriverOnboarding"];
-                "application/x-www-form-urlencoded": components["schemas"]["DriverOnboarding"];
-                "multipart/form-data": components["schemas"]["DriverOnboarding"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DriverOnboarding"];
-                };
-            };
-        };
-    };
-    timesheets_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    timesheets_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    timesheets_retrieve_2: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheet_batch_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    timesheets_adjustments_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheet_batch_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    timesheets_adjustments_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheet_batch_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    timesheets_adjustments_destroy: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheet_batch_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    timesheets_adjustments_retrieve_2: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheet_id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    timesheets_adjustments_create_2: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheet_id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    timesheets_adjustments_destroy_2: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                timesheet_id: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    timesheets_configs_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    timesheets_configs_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    todo_notes_notes_list: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Note"][];
-                };
-            };
-        };
-    };
-    todo_notes_notes_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Note"];
-                "application/x-www-form-urlencoded": components["schemas"]["Note"];
-                "multipart/form-data": components["schemas"]["Note"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Note"];
-                };
-            };
-        };
-    };
-    todo_notes_notes_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Note"];
-                };
-            };
-        };
-    };
-    todo_notes_notes_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Note"];
-                "application/x-www-form-urlencoded": components["schemas"]["Note"];
-                "multipart/form-data": components["schemas"]["Note"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Note"];
-                };
-            };
-        };
-    };
-    todo_notes_notes_destroy: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    todo_notes_notes_partial_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["PatchedNote"];
-                "application/x-www-form-urlencoded": components["schemas"]["PatchedNote"];
-                "multipart/form-data": components["schemas"]["PatchedNote"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Note"];
-                };
-            };
-        };
-    };
-    todo_notes_tasks_list: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Task"][];
-                };
-            };
-        };
-    };
-    todo_notes_tasks_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Task"];
-                "application/x-www-form-urlencoded": components["schemas"]["Task"];
-                "multipart/form-data": components["schemas"]["Task"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Task"];
-                };
-            };
-        };
-    };
-    todo_notes_tasks_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Task"];
-                };
-            };
-        };
-    };
-    todo_notes_tasks_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["Task"];
-                "application/x-www-form-urlencoded": components["schemas"]["Task"];
-                "multipart/form-data": components["schemas"]["Task"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Task"];
-                };
-            };
-        };
-    };
-    todo_notes_tasks_destroy: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    todo_notes_tasks_partial_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: {
-            content: {
-                "application/json": components["schemas"]["PatchedTask"];
-                "application/x-www-form-urlencoded": components["schemas"]["PatchedTask"];
-                "multipart/form-data": components["schemas"]["PatchedTask"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Task"];
-                };
-            };
-        };
-    };
-    todo_notes_tasks_comments_list: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                task_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TaskComment"][];
-                };
-            };
-        };
-    };
-    todo_notes_tasks_comments_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                task_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TaskComment"];
-                "application/x-www-form-urlencoded": components["schemas"]["TaskComment"];
-                "multipart/form-data": components["schemas"]["TaskComment"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TaskComment"];
-                };
-            };
-        };
-    };
-    todo_notes_tasks_comments_retrieve: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-                task_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TaskComment"];
-                };
-            };
-        };
-    };
-    todo_notes_tasks_comments_destroy: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-                task_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No response body */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    token_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["MyTokenObtainPair"];
-                "application/x-www-form-urlencoded": components["schemas"]["MyTokenObtainPair"];
-                "multipart/form-data": components["schemas"]["MyTokenObtainPair"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MyTokenObtainPair"];
-                };
-            };
-        };
-    };
-    token_refresh_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TokenRefresh"];
-                "application/x-www-form-urlencoded": components["schemas"]["TokenRefresh"];
-                "multipart/form-data": components["schemas"]["TokenRefresh"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TokenRefresh"];
-                };
-            };
-        };
-    };
+  clients_clients_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  clients_clients_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  clients_contracts_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  clients_contracts_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  fleet_drivers_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Driver"][];
+        };
+      };
+    };
+  };
+  fleet_drivers_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Driver"];
+        "application/x-www-form-urlencoded": components["schemas"]["Driver"];
+        "multipart/form-data": components["schemas"]["Driver"];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Driver"];
+        };
+      };
+    };
+  };
+  fleet_drivers_formatted_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Driver"][];
+        };
+      };
+    };
+  };
+  fleet_drivers_formatted_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Driver"];
+        "application/x-www-form-urlencoded": components["schemas"]["Driver"];
+        "multipart/form-data": components["schemas"]["Driver"];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Driver"];
+        };
+      };
+    };
+  };
+  fleet_drivers_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Driver"];
+        };
+      };
+    };
+  };
+  fleet_drivers_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Driver"];
+        "application/x-www-form-urlencoded": components["schemas"]["Driver"];
+        "multipart/form-data": components["schemas"]["Driver"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Driver"];
+        };
+      };
+    };
+  };
+  fleet_drivers_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  fleet_drivers_partial_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["PatchedDriver"];
+        "application/x-www-form-urlencoded": components["schemas"]["PatchedDriver"];
+        "multipart/form-data": components["schemas"]["PatchedDriver"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Driver"];
+        };
+      };
+    };
+  };
+  fleet_drivers_formatted_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Driver"];
+        };
+      };
+    };
+  };
+  fleet_drivers_formatted_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Driver"];
+        "application/x-www-form-urlencoded": components["schemas"]["Driver"];
+        "multipart/form-data": components["schemas"]["Driver"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Driver"];
+        };
+      };
+    };
+  };
+  fleet_drivers_formatted_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  fleet_drivers_formatted_partial_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["PatchedDriver"];
+        "application/x-www-form-urlencoded": components["schemas"]["PatchedDriver"];
+        "multipart/form-data": components["schemas"]["PatchedDriver"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Driver"];
+        };
+      };
+    };
+  };
+  fleet_vehicles_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Vehicle"][];
+        };
+      };
+    };
+  };
+  fleet_vehicles_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Vehicle"];
+        "application/x-www-form-urlencoded": components["schemas"]["Vehicle"];
+        "multipart/form-data": components["schemas"]["Vehicle"];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Vehicle"];
+        };
+      };
+    };
+  };
+  fleet_vehicles_formatted_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Vehicle"][];
+        };
+      };
+    };
+  };
+  fleet_vehicles_formatted_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Vehicle"];
+        "application/x-www-form-urlencoded": components["schemas"]["Vehicle"];
+        "multipart/form-data": components["schemas"]["Vehicle"];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Vehicle"];
+        };
+      };
+    };
+  };
+  fleet_vehicles_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Vehicle"];
+        };
+      };
+    };
+  };
+  fleet_vehicles_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Vehicle"];
+        "application/x-www-form-urlencoded": components["schemas"]["Vehicle"];
+        "multipart/form-data": components["schemas"]["Vehicle"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Vehicle"];
+        };
+      };
+    };
+  };
+  fleet_vehicles_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  fleet_vehicles_partial_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["PatchedVehicle"];
+        "application/x-www-form-urlencoded": components["schemas"]["PatchedVehicle"];
+        "multipart/form-data": components["schemas"]["PatchedVehicle"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Vehicle"];
+        };
+      };
+    };
+  };
+  fleet_vehicles_formatted_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Vehicle"];
+        };
+      };
+    };
+  };
+  fleet_vehicles_formatted_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Vehicle"];
+        "application/x-www-form-urlencoded": components["schemas"]["Vehicle"];
+        "multipart/form-data": components["schemas"]["Vehicle"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Vehicle"];
+        };
+      };
+    };
+  };
+  fleet_vehicles_formatted_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  fleet_vehicles_formatted_partial_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["PatchedVehicle"];
+        "application/x-www-form-urlencoded": components["schemas"]["PatchedVehicle"];
+        "multipart/form-data": components["schemas"]["PatchedVehicle"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Vehicle"];
+        };
+      };
+    };
+  };
+  health_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  invoices_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  invoices_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  onboarding_drivers_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DriverOnboarding"][];
+        };
+      };
+    };
+  };
+  onboarding_drivers_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["DriverOnboarding"];
+        "application/x-www-form-urlencoded": components["schemas"]["DriverOnboarding"];
+        "multipart/form-data": components["schemas"]["DriverOnboarding"];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DriverOnboarding"];
+        };
+      };
+    };
+  };
+  onboarding_drivers_formatted_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DriverOnboarding"][];
+        };
+      };
+    };
+  };
+  onboarding_drivers_formatted_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        format: ".json";
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["DriverOnboarding"];
+        "application/x-www-form-urlencoded": components["schemas"]["DriverOnboarding"];
+        "multipart/form-data": components["schemas"]["DriverOnboarding"];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DriverOnboarding"];
+        };
+      };
+    };
+  };
+  timesheets_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  timesheets_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  timesheets_retrieve_2: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheet_batch_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  timesheets_adjustments_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheet_batch_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  timesheets_adjustments_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheet_batch_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  timesheets_adjustments_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheet_batch_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  timesheets_adjustments_retrieve_2: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheet_id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  timesheets_adjustments_create_2: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheet_id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  timesheets_adjustments_destroy_2: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        timesheet_id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  timesheets_configs_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  timesheets_configs_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  todo_notes_notes_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Note"][];
+        };
+      };
+    };
+  };
+  todo_notes_notes_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Note"];
+        "application/x-www-form-urlencoded": components["schemas"]["Note"];
+        "multipart/form-data": components["schemas"]["Note"];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Note"];
+        };
+      };
+    };
+  };
+  todo_notes_notes_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Note"];
+        };
+      };
+    };
+  };
+  todo_notes_notes_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Note"];
+        "application/x-www-form-urlencoded": components["schemas"]["Note"];
+        "multipart/form-data": components["schemas"]["Note"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Note"];
+        };
+      };
+    };
+  };
+  todo_notes_notes_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  todo_notes_notes_partial_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["PatchedNote"];
+        "application/x-www-form-urlencoded": components["schemas"]["PatchedNote"];
+        "multipart/form-data": components["schemas"]["PatchedNote"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Note"];
+        };
+      };
+    };
+  };
+  todo_notes_tasks_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Task"][];
+        };
+      };
+    };
+  };
+  todo_notes_tasks_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Task"];
+        "application/x-www-form-urlencoded": components["schemas"]["Task"];
+        "multipart/form-data": components["schemas"]["Task"];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Task"];
+        };
+      };
+    };
+  };
+  todo_notes_tasks_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Task"];
+        };
+      };
+    };
+  };
+  todo_notes_tasks_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["Task"];
+        "application/x-www-form-urlencoded": components["schemas"]["Task"];
+        "multipart/form-data": components["schemas"]["Task"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Task"];
+        };
+      };
+    };
+  };
+  todo_notes_tasks_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  todo_notes_tasks_partial_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        "application/json": components["schemas"]["PatchedTask"];
+        "application/x-www-form-urlencoded": components["schemas"]["PatchedTask"];
+        "multipart/form-data": components["schemas"]["PatchedTask"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Task"];
+        };
+      };
+    };
+  };
+  todo_notes_tasks_comments_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        task_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TaskComment"][];
+        };
+      };
+    };
+  };
+  todo_notes_tasks_comments_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        task_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TaskComment"];
+        "application/x-www-form-urlencoded": components["schemas"]["TaskComment"];
+        "multipart/form-data": components["schemas"]["TaskComment"];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TaskComment"];
+        };
+      };
+    };
+  };
+  todo_notes_tasks_comments_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+        task_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TaskComment"];
+        };
+      };
+    };
+  };
+  todo_notes_tasks_comments_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        id: string;
+        task_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  token_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["MyTokenObtainPair"];
+        "application/x-www-form-urlencoded": components["schemas"]["MyTokenObtainPair"];
+        "multipart/form-data": components["schemas"]["MyTokenObtainPair"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["MyTokenObtainPair"];
+        };
+      };
+    };
+  };
+  token_refresh_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TokenRefresh"];
+        "application/x-www-form-urlencoded": components["schemas"]["TokenRefresh"];
+        "multipart/form-data": components["schemas"]["TokenRefresh"];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TokenRefresh"];
+        };
+      };
+    };
+  };
 }

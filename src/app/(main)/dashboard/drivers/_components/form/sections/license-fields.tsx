@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export type LicenceType = NonNullable<DriverRecord["licence_submission"]>
+export type LicenceType = NonNullable<DriverRecord["licence_submission"]>;
 
 interface LicenceProps {
   licence: DriverRecord["licence_submission"];
@@ -25,8 +25,8 @@ interface LicenceProps {
 
 export default function LicenceFields({ licence, onUpdate }: LicenceProps) {
   if (!licence) return null;
-  let licenceUpdate = (key, val) => onUpdate("licence_submission", key, val)
-  let attachmentUpdate = (key, val) => onUpdate("attachments", key, val)
+  let licenceUpdate = (key, val) => onUpdate("licence_submission", key, val);
+  let attachmentUpdate = (key, val) => onUpdate("attachments", key, val);
   return (
     <FormSection
       title="2. Licence"
@@ -86,7 +86,12 @@ export default function LicenceFields({ licence, onUpdate }: LicenceProps) {
         <FileDropzone
           name="licence_front_image"
           allowed_ext={"pdf, jpg, jpeg, webP"}
-          onChange={(file) => attachmentUpdate("licence_front_image", file)}
+          file={
+            licence.licence_front_image
+              ? licence.licence_front_image.name
+              : undefined
+          }
+          onChange={(file) => licenceUpdate("licence_front_image", file)}
         />
       </Field>
       <Field className="col-span-full">
@@ -94,7 +99,12 @@ export default function LicenceFields({ licence, onUpdate }: LicenceProps) {
         <FileDropzone
           name="licence_back_image"
           allowed_ext={".png, .jpg, .jpeg, .webP"}
-          onChange={(value) => attachmentUpdate("licence_back_image", value)}
+          file={
+            licence.licence_back_image
+              ? licence.licence_back_image.name
+              : undefined
+          }
+          onChange={(value) => licenceUpdate("licence_back_image", value)}
         />
       </Field>
     </FormSection>

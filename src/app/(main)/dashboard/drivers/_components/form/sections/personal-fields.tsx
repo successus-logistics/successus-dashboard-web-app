@@ -11,7 +11,10 @@ export default function PersonalFields({
   onUpdate,
 }: {
   driver: DriverRecord["driver"];
-  onUpdate: <K extends keyof DriverRecord["driver"]>(key: K, value: DriverRecord["driver"][K]) => void;
+  onUpdate: <K extends keyof DriverRecord["driver"]>(
+    key: K,
+    value: DriverRecord["driver"][K],
+  ) => void;
 }) {
   return (
     <FormSection
@@ -73,7 +76,7 @@ export default function PersonalFields({
         <FileDropzone
           allowed_ext=".png, .pdf, .jpg, webP, .docx"
           name="proof_of_address"
-          onChange={() => null}
+          onChange={(file) => onUpdate("address_proof", file)}
         />
       </Field>
       <FieldGroup className="col-span-full grid grid-cols-2">

@@ -139,6 +139,11 @@ These serve as the fallback; there is no separate default.css file. */
   html {
     @apply font-sans;
   }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 @layer utilities {
