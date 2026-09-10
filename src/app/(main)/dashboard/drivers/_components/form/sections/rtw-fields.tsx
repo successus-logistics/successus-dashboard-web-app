@@ -82,7 +82,7 @@ export default function RTWFields({ data, onUpdate }: LegalData) {
               id="passsport_no"
               name="passport_number"
               placeholder="Passport Number"
-              onChange={(value) => onUpdate("passport_number", value)}
+              onChange={(e) => onUpdate("passport_number", e.target.value)}
             />
           </Field>
         </FieldGroup>
@@ -102,49 +102,53 @@ export default function RTWFields({ data, onUpdate }: LegalData) {
         </Field>
       )}
 
-      <FieldGroup className="col-span-full">
+      <FieldGroup className="col-span-full gap-0">
         <FieldLegend>Evidence</FieldLegend>
-        {Object.entries(data.attachments).length === 0 ? (
-          <Field>
-            <FileDropzone
-              name="document"
-              allowed_ext=".png, .pdf"
-              onChange={(file) => {
-                console.log("file:", file);
-                onUpdate("attachments", {
-                  ...data.attachments,
-                  passport_number: file,
-                });
-              }}
-            />
-          </Field>
-        ) : (
-          Object.entries(data.attachments).map(([key, file]) => (
-            <Field key={key}>
-              <FieldLabel>{key}</FieldLabel>
+        <div className="flex gap-2 flex-wrap">
+          {Object.entries(data.attachments).length === 0 ? (
+            <Field>
               <FileDropzone
                 name="document"
-                file={file}
-                allowed_ext=".png, .pdf, .jpg, .webP"
+                allowed_ext=".png, .pdf"
                 onChange={(file) => {
-                  const prev = data.attachments;
-                  if (!file) {
-                    const { [key]: _, ...removed } = prev;
-                    onUpdate("attachments", removed);
-                  } else {
-                    const { [key]: _, ...added } = prev;
-                    onUpdate("attachments", added);
-                  }
+                  console.log("file:", file);
+                  onUpdate("attachments", {
+                    ...data.attachments,
+                    passport_number: file,
+                  });
                 }}
               />
             </Field>
-          ))
-        )}
+          ) : (
+            Object.entries(data.attachments).map(([key, file]) => (
+              <Field key={key} className="w-fit">
+                <FileDropzone
+                  name={file.file_name}
+                  file={file.file}
+                  allowed_ext=".png, .pdf, .jpg, .webP"
+                  onChange={(file) => {
+                    const prev = data.attachments;
+                    if (!file) {
+                      const { [key]: _, ...removed } = prev;
+                      onUpdate("attachments", removed);
+                    } else {
+                      const { [key]: _, ...added } = prev;
+                      onUpdate("attachments", added);
+                    }
+                  }}
+                />
+              </Field>
+            ))
+          )}
+        </div>
       </FieldGroup>
       <Field>
-        <FieldLabel>Supporting Evidence</FieldLabel>
-
-        <FileUpload />
+        <FileUpload addFile={(name, newFile) => {
+          const prev = data.attachments;
+          const added = { [name]: newFile, ...prev }
+          console.log("added", added)
+          onUpdate("attachments", added);
+        }} />
       </Field>
       <Field className="col-span-full">
         <FieldLabel>Notes</FieldLabel>

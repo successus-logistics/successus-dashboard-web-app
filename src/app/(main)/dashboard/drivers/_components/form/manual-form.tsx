@@ -71,14 +71,15 @@ export default function ManualForm({
     // setIsSaving(true);
 
     const data = {};
-    data["driver"] = draft.driver;
-    if (draft["licence_submission"]) {
-      data["licence_submission"] = {};
-      data["attachments"] = {};
-      for (const [key, value] of Object.entries(draft["licence_submission"])) {
-        console.log(key, value instanceof File);
-        if (value instanceof File) data["attachments"][key] = value.type;
-        else data["licence_submission"][key] = value;
+    data["attachments"] = {}
+    for (const [sectionName, sectionValue] of Object.entries(draft)) {
+      data[sectionName] = {}
+      for (const [key, value] of Object.entries(sectionValue)) {
+        if (key === "attachments") {
+          for (const [attachmentKey, attachmentValue] of Object.entries(value)) {
+            data["attachments"][attachmentKey] = attachmentValue.type;
+          }
+        } else data[sectionName][key] = value;
       }
     }
     console.log("finished data", data);

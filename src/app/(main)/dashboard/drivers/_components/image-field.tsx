@@ -56,12 +56,11 @@ export default function ImageField({
   if (src instanceof File) {
     src = getImgPreview(src);
   }
-  console.log("image:", src, src instanceof File);
   if (image) {
     return (
       <>
         <Attachment
-          orientation={"vertical"}
+          orientation={"horizontal"}
           className="w-56 group"
           size={"default"}
           {...props}

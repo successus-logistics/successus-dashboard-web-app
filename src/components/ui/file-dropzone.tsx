@@ -21,16 +21,19 @@ export default function FileDropzone({
 }: {
   name: string;
   allowed_ext: string;
-  file?: File;
+  file?: File | undefined;
   onChange?: (file: File | undefined) => void;
 }) {
   const [fileSelected, setFileSelected] = useState(file);
   if (fileSelected) {
     return (
       <ImageField
-        field=""
+        field={name}
         image={fileSelected}
-        deleteAction={() => onChange(undefined)}
+        deleteAction={() => {
+          setFileSelected(undefined)
+          onChange(undefined)
+        }}
       />
     );
   }
@@ -51,6 +54,7 @@ export default function FileDropzone({
 
       const file = await fileHandle.getFile();
       setFileSelected(file); // Saved in memory
+      if (onChange) onChange(file)
     } catch (err) {
       console.log("User cancelled or browser unsupported", err);
     }
@@ -63,7 +67,7 @@ export default function FileDropzone({
           <CloudUpload />
         </EmptyMedia>
         <EmptyTitle>Upload File</EmptyTitle>
-        <EmptyDescription>Upload files.</EmptyDescription>
+        <EmptyDescription>Select file to upload</EmptyDescription>
       </EmptyHeader>
       <EmptyContent className="relative">
         <Button onClick={openFilePicker} variant={"outline"} size={"sm"}>

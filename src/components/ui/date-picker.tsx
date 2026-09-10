@@ -43,11 +43,12 @@ export function DatePickerInput({
   const [month, setMonth] = React.useState<Date | undefined>(date);
   const [value, setValue] = React.useState(formatDate(date));
   return (
-    <HoverCard open={open} onOpenChange={setOpen}>
+    <HoverCard open={open} onOpenChange={setOpen} openDelay={300}>
       <InputGroup>
         <HoverCardTrigger asChild>
           <InputGroupInput
-            autoComplete="false"
+            autoFocus={false}
+            autoComplete="off"
             id="date-required"
             value={value}
             placeholder="1999-01-01"
