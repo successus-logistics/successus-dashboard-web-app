@@ -2,20 +2,24 @@ import { UserRound } from "lucide-react";
 import FormSection from "../../form";
 import { DriverField } from "../field";
 import DriverDatePicker from "../../driver-date-picker";
-import { DriverRecord, PartialDriverRecord } from "../../../types";
+import { AttachmentType, DriverRecord } from "../../../types";
+import { useDriverDraft } from "../driver-draft-context";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import FileDropzone from "@/components/ui/file-dropzone";
+import { formatDate } from "@/components/ui/date-picker";
+import { addMonths } from "date-fns";
 
-export default function PersonalFields({
-  driver,
-  onUpdate,
-}: {
-  driver: DriverRecord["driver"];
-  onUpdate: <K extends keyof DriverRecord["driver"]>(
-    key: K,
+export default function PersonalFields() {
+  const { draft, updateField, addFile, removeFile } = useDriverDraft();
+  const driver = draft.driver;
+  const updateDriver = <K extends keyof DriverRecord["driver"]>(
+    field: K,
     value: DriverRecord["driver"][K],
-  ) => void;
-}) {
+  ) => updateField("driver", field, value);
+  const addAttachment = (file: Record<string, AttachmentType>) =>
+    addFile("driver", file);
+  const removeAttachment = (attachment: AttachmentType) =>
+    removeFile("driver", attachment);
   return (
     <FormSection
       title="1. Personal"
@@ -28,8 +32,8 @@ export default function PersonalFields({
         value={driver.first_name ?? ""}
         required
         onChange={(value) => {
-          onUpdate("first_name", value);
-          onUpdate("full_name", value + " " + (driver.last_name ?? ""));
+          updateDriver("first_name", value);
+          updateDriver("full_name", value + " " + (driver.last_name ?? ""));
         }}
       />
       <DriverField
@@ -38,15 +42,15 @@ export default function PersonalFields({
         value={driver.last_name ?? ""}
         required
         onChange={(value) => {
-          onUpdate("last_name", value);
-          onUpdate("full_name", (driver.first_name ?? "") + " " + value);
+          updateDriver("last_name", value);
+          updateDriver("full_name", (driver.first_name ?? "") + " " + value);
         }}
       />
       <DriverDatePicker
         label="Date of birth"
         id="driver-date-of-birth"
         value={driver.dob ?? ""}
-        onChange={(value) => onUpdate("dob", value)}
+        onChange={(value) => updateDriver("dob", value)}
       />
       <DriverField
         label="Phone"
@@ -54,7 +58,7 @@ export default function PersonalFields({
         type="tel"
         value={driver.phone_number ?? ""}
         required
-        onChange={(value) => onUpdate("phone_number", value)}
+        onChange={(value) => updateDriver("phone_number", value)}
       />
       <DriverField
         label="Email"
@@ -62,21 +66,36 @@ export default function PersonalFields({
         type="email"
         value={driver.email ?? ""}
         required
-        onChange={(value) => onUpdate("email", value)}
+        onChange={(value) => updateDriver("email", value)}
       />
       <DriverField
         label="Address"
         id="driver-address"
         value={driver.address ?? ""}
         className="sm:col-span-2"
-        onChange={(value) => onUpdate("address", value)}
+        onChange={(value) => updateDriver("address", value)}
       />
       <Field className="col-span-full">
         <FieldLabel>Proof of Address</FieldLabel>
         <FileDropzone
           allowed_ext=".png, .pdf, .jpg, webP, .docx"
           name="proof_of_address"
-          onChange={(file) => onUpdate("address_proof", file)}
+          file={driver.attachments["proof_of_address"]}
+          addFile={(file) => {
+            const startDate = new Date();
+
+            addAttachment({
+              proof_of_address: {
+                file_name: "proof_of_address",
+                file_type: file.type,
+                start_date: formatDate(new Date()),
+                expiry_date: formatDate(addMonths(startDate, 6)),
+                file: file,
+                file_size: file.size,
+              },
+            });
+          }}
+          removeFile={(file) => removeAttachment(file)}
         />
       </Field>
       <FieldGroup className="col-span-full grid grid-cols-2">
@@ -85,7 +104,7 @@ export default function PersonalFields({
           id="emergency-contact"
           value={driver.address ?? ""}
           className="col-span-full"
-          onChange={(value) => onUpdate("emergency_contact_name", value)}
+          onChange={(value) => updateDriver("emergency_contact_name", value)}
         />
         <DriverField
           label="Emergency Contact Number"
@@ -93,7 +112,7 @@ export default function PersonalFields({
           value={driver.emergency_contact_phone_number ?? ""}
           className="sm:col-span-1"
           onChange={(value) =>
-            onUpdate("emergency_contact_phone_number", value)
+            updateDriver("emergency_contact_phone_number", value)
           }
         />
         <DriverField
@@ -102,7 +121,7 @@ export default function PersonalFields({
           value={driver.emergency_contact_relationship ?? ""}
           className="sm:col-span-1"
           onChange={(value) =>
-            onUpdate("emergency_contact_relationship", value)
+            updateDriver("emergency_contact_relationship", value)
           }
         />
       </FieldGroup>

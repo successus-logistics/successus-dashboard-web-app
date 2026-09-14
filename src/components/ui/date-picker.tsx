@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/input-group";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card";
 
-function formatDate(date: Date | undefined) {
+export function formatDate(date: Date | undefined) {
   if (!date) {
     return "";
   }
@@ -42,6 +42,9 @@ export function DatePickerInput({
   const [date, setDate] = React.useState<Date | undefined>(dateValue);
   const [month, setMonth] = React.useState<Date | undefined>(date);
   const [value, setValue] = React.useState(formatDate(date));
+  React.useEffect(() => {
+    setValue(formatDate(dateValue));
+  }, [dateValue]);
   return (
     <HoverCard open={open} onOpenChange={setOpen} openDelay={300}>
       <InputGroup>
@@ -69,38 +72,38 @@ export function DatePickerInput({
             }}
           />
         </HoverCardTrigger>
-        <InputGroupAddon align="inline-end">
-          <InputGroupButton
-            id="date-picker"
-            variant="default"
-            size="icon-xs"
-            aria-label="Select date"
-            onClick={() => setOpen(!open)}
-          >
-            <CalendarIcon />
-            <span className="sr-only">Select date</span>
-          </InputGroupButton>
-          <HoverCardContent
-            className="w-auto overflow-hidden p-0"
-            align="end"
-            alignOffset={-8}
-            sideOffset={10}
-          >
-            <Calendar
-              mode="single"
-              selected={date}
-              month={month}
-              onMonthChange={setMonth}
-              captionLayout="dropdown"
-              onSelect={(date) => {
-                setDate(date);
-                setValue(formatDate(date));
-                setOpen(false);
-                updateDateValue(formatDate(date));
-              }}
-            />
-          </HoverCardContent>
-        </InputGroupAddon>
+        <InputGroupButton
+          className="mr-1!"
+          id="date-picker"
+          variant="default"
+          size="icon-xs"
+          aria-label="Select date"
+          onClick={() => setOpen(!open)}
+        >
+          <CalendarIcon />
+          <span className="sr-only">Select date</span>
+        </InputGroupButton>
+        <HoverCardContent
+          autoFocus={false}
+          className="w-auto overflow-hidden p-0"
+          align="end"
+          alignOffset={-8}
+          sideOffset={10}
+        >
+          <Calendar
+            mode="single"
+            selected={date}
+            month={month}
+            onMonthChange={setMonth}
+            captionLayout="dropdown"
+            onSelect={(date) => {
+              setDate(date);
+              setValue(formatDate(date));
+              setOpen(false);
+              updateDateValue(formatDate(date));
+            }}
+          />
+        </HoverCardContent>
       </InputGroup>
     </HoverCard>
   );

@@ -1,4 +1,5 @@
 import { FieldSet } from "@/components/ui/field";
+import { ComponentPropsWithRef } from "react";
 
 interface FormSectionProps {
   title: string;
@@ -12,9 +13,10 @@ export default function FormSection({
   description,
   icon: Icon,
   children,
-}: FormSectionProps) {
+  ...props
+}: FormSectionProps & ComponentPropsWithRef<typeof FieldSet>) {
   return (
-    <FieldSet>
+    <FieldSet {...props}>
       <div className="flex items-start gap-3 border-b p-4">
         <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
           <Icon className="size-4" />

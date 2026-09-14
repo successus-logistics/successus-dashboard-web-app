@@ -10,44 +10,47 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./dialog";
-import { Field, FieldGroup, FieldLabel } from "./field";
+import { Field, FieldError, FieldGroup, FieldLabel } from "./field";
 import { DatePickerInput } from "./date-picker";
 import { Input } from "./input";
 import { useState } from "react";
 import FileDropzone from "./file-dropzone";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
-import { file } from "zod";
+import { AttachmentType } from "@/app/(main)/dashboard/drivers/types";
 
 const fileType = {
   image: ".png, webp, .jpg, .jpeg",
   document: ".pdf, .docx, .doc",
 } as const;
 
-type FileInformationType = {
-  file_name: string;
-  type: string;
-  start_date: string | undefined;
-  expiry_date: string | undefined;
-  file: File | undefined
-}
+const EMPTYFILEINFORMATION = {
+  file_name: "",
+  file_type: "",
+  start_date: undefined,
+  expiry_date: undefined,
+  file: undefined,
+  file_size: 0,
+};
 
-export default function FileUpload({ addFile }: { addFile: (name: string, file: File | undefined) => void; }) {
-  const [open, setOpen] = useState(false)
-  const [fileSelected, setFileSelected] = useState<File | undefined>(undefined);
-  const [fileName, setFileName] = useState("")
-  const [type, setType] = useState<keyof typeof fileType>("image");
-  const [startDate, setStartDate] = useState<string | undefined>();
-  const [expiryDate, setExpiryDate] = useState<string | undefined>();
-  const [fileInformation, setFileInformation] = useState<FileInformationType>({
-    file_name: "",
-    type: "",
-    start_date: undefined,
-    expiry_date: undefined,
-    file: undefined,
-  })
-  console.log(fileInformation)
+export default function FileUpload({
+  addFile,
+}: {
+  addFile: (name: string, file: AttachmentType) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
+
+  const [fileInformation, setFileInformation] =
+    useState<AttachmentType>(EMPTYFILEINFORMATION);
+  console.log("changed", fileInformation);
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(value) => {
+        setOpen(value);
+        setFileInformation(EMPTYFILEINFORMATION);
+        setIsInvalid(false);
+      }}
+    >
       <DialogTrigger asChild>
         <Button variant={"outline"}>
           <PlusCircle />
@@ -55,10 +58,11 @@ export default function FileUpload({ addFile }: { addFile: (name: string, file: 
         </Button>
       </DialogTrigger>
       <DialogContent
-        className="min-w-xl"
+        className="sm:min-w-xl"
         onOpenAutoFocus={(e) => {
-          e.preventDefault()
-        }}>
+          e.preventDefault();
+        }}
+      >
         <DialogHeader>
           <DialogTitle>New File Upload</DialogTitle>
           <DialogDescription>
@@ -66,9 +70,14 @@ export default function FileUpload({ addFile }: { addFile: (name: string, file: 
           </DialogDescription>
         </DialogHeader>
         <FieldGroup className="grid grid-cols-2">
-          <Field>
-            <FieldLabel>File Name</FieldLabel>
-            <Input name="file_name" placeholder="file name"
+          <Field className="col-span-full">
+            <FieldLabel htmlFor="file_name" required>
+              File Name
+            </FieldLabel>
+            <Input
+              id="file_name"
+              name="file_name"
+              placeholder="file name"
               onChange={(e) =>
                 setFileInformation((prev) => ({
                   ...prev,
@@ -76,58 +85,84 @@ export default function FileUpload({ addFile }: { addFile: (name: string, file: 
                 }))
               }
             />
-          </Field>
-          <Field>
-            <FieldLabel>File Type</FieldLabel>
-            <Select name="file_type" onValueChange={(value: keyof typeof fileType) => setFileInformation(prev => ({ ...prev, type: value }))}>
-              <SelectTrigger>
-                <SelectValue placeholder="select file type" />
-              </SelectTrigger>
-              <SelectContent position="popper">
-                {Object.entries(fileType).map(([key]) => (
-                  <SelectItem key={key} value={key}>{key}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {isInvalid && <FieldError>Please enter a file name</FieldError>}
           </Field>
           <Field>
             <FieldLabel>Start Date</FieldLabel>
             <DatePickerInput
-              dateValue={fileInformation.start_date ? new Date(fileInformation.start_date) : undefined}
+              dateValue={
+                fileInformation.start_date
+                  ? new Date(fileInformation.start_date)
+                  : undefined
+              }
               updateDateValue={(newDate) => {
-                if (newDate) setFileInformation(prev => ({ ...prev, start_date: newDate }));
+                if (newDate)
+                  setFileInformation((prev) => ({
+                    ...prev,
+                    start_date: newDate,
+                  }));
               }}
             />
           </Field>
           <Field>
             <FieldLabel>Expiry Date</FieldLabel>
             <DatePickerInput
-              dateValue={fileInformation.expiry_date ? new Date(fileInformation.expiry_date) : undefined}
+              dateValue={
+                fileInformation.expiry_date
+                  ? new Date(fileInformation.expiry_date)
+                  : undefined
+              }
               updateDateValue={(newDate) => {
-                if (newDate) setFileInformation(prev => ({ ...prev, expiry_date: newDate }));
+                if (newDate)
+                  setFileInformation((prev) => ({
+                    ...prev,
+                    expiry_date: newDate,
+                  }));
               }}
             />
           </Field>
         </FieldGroup>
         <Field>
-          <FieldLabel>Document</FieldLabel>
+          <FieldLabel required>Document</FieldLabel>
           <FileDropzone
-            allowed_ext={fileType[type]}
-            name={type}
-            file={fileSelected}
-            onChange={(f) => {
-              setFileInformation(prev => ({ ...prev, file: f }))
+            name={fileInformation.file_type}
+            file={fileInformation}
+            addFile={(f) => {
+              setFileInformation((prev) => ({
+                ...prev,
+                file: f,
+                file_type: f.type,
+                expiry_date: fileInformation.expiry_date,
+                start_date: fileInformation.start_date,
+                file_name: fileInformation.file_name,
+                file_size: f.size,
+              }));
             }}
+            removeFile={(f) => setFileInformation(EMPTYFILEINFORMATION)}
           />
+          {isInvalid && <FieldError>Please enter a file name</FieldError>}
         </Field>
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button onClick={() => {
-            addFile(fileInformation.file_name, fileInformation)
-            setOpen(false)
-          }} type="submit">Save changes</Button>
+          <Button
+            onClick={() => {
+              if (!fileInformation.file) {
+                setIsInvalid(true);
+                return;
+              }
+              if (!fileInformation.file_name) {
+                setIsInvalid(true);
+                return;
+              }
+              addFile(fileInformation.file_name, fileInformation);
+              setOpen(false);
+            }}
+            type="submit"
+          >
+            Save changes
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

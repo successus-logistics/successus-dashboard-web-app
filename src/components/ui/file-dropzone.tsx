@@ -1,8 +1,6 @@
 "use client";
-import { CloudUpload, File } from "lucide-react";
-import { Input } from "./input";
+import { CloudUpload } from "lucide-react";
 import { Button } from "./button";
-import { useState } from "react";
 import {
   Empty,
   EmptyContent,
@@ -12,27 +10,30 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty";
 import ImageField from "@/app/(main)/dashboard/drivers/_components/image-field";
+import { AttachmentType } from "@/app/(main)/dashboard/drivers/types";
 
 export default function FileDropzone({
   name,
   allowed_ext,
   file,
-  onChange,
+  addFile,
+  removeFile,
 }: {
   name: string;
-  allowed_ext: string;
-  file?: File | undefined;
+  allowed_ext?: string;
+  file?: AttachmentType | undefined;
   onChange?: (file: File | undefined) => void;
+  addFile?: (file: File) => void;
+  removeFile?: (file: AttachmentType) => void;
 }) {
-  const [fileSelected, setFileSelected] = useState(file);
-  if (fileSelected) {
+  if (file?.file) {
     return (
       <ImageField
-        field={name}
-        image={fileSelected}
+        field={file.file?.name}
+        image={file.file}
         deleteAction={() => {
-          setFileSelected(undefined)
-          onChange(undefined)
+          //onChange(selectedFile, "delete");
+          if (removeFile) removeFile(file);
         }}
       />
     );
@@ -53,8 +54,7 @@ export default function FileDropzone({
       });
 
       const file = await fileHandle.getFile();
-      setFileSelected(file); // Saved in memory
-      if (onChange) onChange(file)
+      if (addFile) addFile(file);
     } catch (err) {
       console.log("User cancelled or browser unsupported", err);
     }
@@ -70,8 +70,13 @@ export default function FileDropzone({
         <EmptyDescription>Select file to upload</EmptyDescription>
       </EmptyHeader>
       <EmptyContent className="relative">
-        <Button onClick={openFilePicker} variant={"outline"} size={"sm"}>
-          Browse File
+        <Button
+          type="button"
+          onClick={openFilePicker}
+          variant={"outline"}
+          size={"sm"}
+        >
+          Browse Files
         </Button>
       </EmptyContent>
     </Empty>

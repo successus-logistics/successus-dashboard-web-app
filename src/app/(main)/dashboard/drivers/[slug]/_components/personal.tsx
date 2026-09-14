@@ -31,38 +31,6 @@ export default function DriverDetials({
       </CardHeader>
       <Card className="shadow-2xl col-start-2 h-full scrollbar-none p-2! grid">
         <Card>
-          <CardHeader className="flex flex-col gap-2">
-            <div className="flex w-full justify-between">
-              <Avatar className="h-32 w-32">
-                <AvatarImage src={driverDetails.profile_picture} />
-                <AvatarFallback className="text-5xl">
-                  {driverDetails.first_name[0]}
-                  {driverDetails.last_name[0]}
-                </AvatarFallback>
-                <Button
-                  size={"icon-sm"}
-                  variant={"link"}
-                  className="bg-accent rounded-full aspect-square absolute right-0 bottom-0 z-999 hove:bg-none"
-                >
-                  <Camera />
-                </Button>
-              </Avatar>
-              <Button
-                variant={"outline"}
-                className={
-                  disabled
-                    ? "bg-accent data-active:bg-accent hover:bg-accent justify-self-end"
-                    : ""
-                }
-              >
-                <Pencil />
-                Edit
-              </Button>
-            </div>
-            <CardTitle className="font-semibold text-xl">
-              {driverDetails.full_name}
-            </CardTitle>
-          </CardHeader>
           <CardContent>
             <div className="w-full grid grid-cols-2 gap-5">
               <DetialField

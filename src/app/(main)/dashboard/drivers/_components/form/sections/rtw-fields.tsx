@@ -4,13 +4,16 @@ import FormSection from "../../form";
 import FileDropzone from "@/components/ui/file-dropzone";
 import {
   Field,
+  FieldDescription,
   FieldGroup,
   FieldLabel,
   FieldLegend,
+  FieldSeparator,
+  FieldSet,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { DriverRecord } from "../../../types";
-import { LicenceType } from "./license-fields";
+import { AttachmentType, DriverRecord } from "../../../types";
+import { useDriverDraft } from "../driver-draft-context";
 import {
   Select,
   SelectContent,
@@ -19,140 +22,190 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import ImageField from "../../image-field";
 import { Textarea } from "@/components/ui/textarea";
 import FileUpload from "@/components/ui/file_upload";
 
-interface LegalData {
-  data: DriverRecord["legal"];
-  onUpdate: <K extends keyof LicenceType>(
-    key: K,
-    value: LicenceType[K],
-  ) => void;
-}
-
-export default function RTWFields({ data, onUpdate }: LegalData) {
+export default function RTWFields() {
+  const { draft, updateField, clearSection, addFile, removeFile } =
+    useDriverDraft();
+  const data = draft.legal;
+  const updateLegal = <K extends keyof DriverRecord["legal"]>(
+    field: K,
+    value: DriverRecord["legal"][K],
+  ) => updateField("legal", field, value);
+  const addAttachment = (
+    attachment: Record<string, AttachmentType>,
+    required: boolean = true,
+  ) => addFile("legal", attachment, required);
+  const removeAttachment = (attachment: AttachmentType) =>
+    removeFile("legal", attachment);
   return (
     <FormSection
       title="3. Compliance Documents"
       description="Document validity and overall compliance."
       icon={FileCheck2}
     >
-      <Field className="col-span-full">
-        <FieldLabel required htmlFor="document_type">
-          Document Type
-        </FieldLabel>
-        <Select
-          required
-          defaultValue={data?.document_type ?? ""}
-          onValueChange={(value) => onUpdate("document_type", value)}
-        >
-          <SelectTrigger>
-            <SelectValue id="document_type" placeholder="Document Type" />
-          </SelectTrigger>
-          <SelectContent position="popper">
-            <SelectGroup>
-              <SelectItem value="passport">UK or Irish Passport</SelectItem>
-              <SelectItem value="birth">
-                UK or Irish Birth Certificate + NI Evidence
-              </SelectItem>
-              <SelectItem value="share_code">Share Code</SelectItem>
-              <SelectItem value="other">Other</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </Field>
-      <DriverDatePicker
-        label="Valid From"
-        id="valid_from"
-        value={data?.expiry_date ?? ""}
-        onChange={(value) => onUpdate("valid_from", value)}
-      />
-      <DriverDatePicker
-        label="Expiry Date"
-        id="expiry_date"
-        value={data?.expiry_date ?? ""}
-        onChange={(value) => onUpdate("expiry_date", value)}
-      />
-      {data.document_type === "passport" && (
-        <FieldGroup className="col-span-full grid grid-cols-2 ">
+      <FieldSet className="col-span-full">
+        <FieldLegend>Document Information</FieldLegend>
+        <FieldDescription>Please fill out all fields</FieldDescription>
+        <div className="grid sm:grid-cols-2 gap-4">
           <Field className="col-span-full">
-            <FieldLabel htmlFor="passport_no">Passport Number</FieldLabel>
-            <Input
-              id="passsport_no"
-              name="passport_number"
-              placeholder="Passport Number"
-              onChange={(e) => onUpdate("passport_number", e.target.value)}
-            />
+            <FieldLabel required htmlFor="document_type">
+              Document Type
+            </FieldLabel>
+            <Select
+              required
+              defaultValue={data?.document_type ?? ""}
+              onValueChange={(value) => {
+                clearSection("legal");
+                updateLegal("document_type", value);
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue id="document_type" placeholder="Document Type" />
+              </SelectTrigger>
+              <SelectContent position="popper">
+                <SelectGroup>
+                  <SelectItem value="PASSPORT">UK or Irish Passport</SelectItem>
+                  <SelectItem value="BIRTH">
+                    UK or Irish Birth Certificate + NI Evidence
+                  </SelectItem>
+                  <SelectItem value="SHARE_CODE">Share Code</SelectItem>
+                  <SelectItem value="OTHER">Other</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </Field>
-        </FieldGroup>
-      )}
-      {data.document_type == "share_code" && (
-        <Field className="col-span-full">
-          <FieldLabel htmlFor="share_code" required>
-            Share Code
-          </FieldLabel>
-          <Input
-            id="share_code"
-            type="text"
-            required
-            name="share_code"
-            placeholder="Share Code Number..."
+          <DriverDatePicker
+            label="Valid From"
+            id="valid_from"
+            value={data?.valid_from ?? ""}
+            onChange={(value) => updateLegal("valid_from", value)}
           />
-        </Field>
-      )}
-
-      <FieldGroup className="col-span-full gap-0">
-        <FieldLegend>Evidence</FieldLegend>
-        <div className="flex gap-2 flex-wrap">
-          {Object.entries(data.attachments).length === 0 ? (
-            <Field>
-              <FileDropzone
-                name="document"
-                allowed_ext=".png, .pdf"
-                onChange={(file) => {
-                  console.log("file:", file);
-                  onUpdate("attachments", {
-                    ...data.attachments,
-                    passport_number: file,
-                  });
-                }}
-              />
-            </Field>
-          ) : (
-            Object.entries(data.attachments).map(([key, file]) => (
-              <Field key={key} className="w-fit">
-                <FileDropzone
-                  name={file.file_name}
-                  file={file.file}
-                  allowed_ext=".png, .pdf, .jpg, .webP"
-                  onChange={(file) => {
-                    const prev = data.attachments;
-                    if (!file) {
-                      const { [key]: _, ...removed } = prev;
-                      onUpdate("attachments", removed);
-                    } else {
-                      const { [key]: _, ...added } = prev;
-                      onUpdate("attachments", added);
-                    }
-                  }}
+          <DriverDatePicker
+            label="Expiry Date"
+            id="expiry_date"
+            value={draft.legal?.expiry_date ?? ""}
+            onChange={(value) => updateLegal("expiry_date", value)}
+          />
+          {data.document_type === "PASSPORT" && (
+            <FieldGroup className="col-span-full grid grid-cols-2 ">
+              <Field className="col-span-full">
+                <FieldLabel htmlFor="passport_no">Passport Number</FieldLabel>
+                <Input
+                  id="passsport_no"
+                  name="passport_number"
+                  placeholder="Passport Number"
+                  defaultValue={draft.legal.passport_number}
+                  onChange={(e) =>
+                    updateLegal("passport_number", e.target.value)
+                  }
                 />
               </Field>
-            ))
+            </FieldGroup>
+          )}
+          {data.document_type == "SHARE_CODE" && (
+            <Field className="col-span-full">
+              <FieldLabel htmlFor="share_code" required>
+                Share Code
+              </FieldLabel>
+              <Input
+                id="share_code"
+                type="text"
+                required
+                name="share_code"
+                placeholder="Share Code Number..."
+                defaultValue={draft.legal.share_code}
+                onChange={(e) => updateLegal("share_code", e.target.value)}
+              />
+            </Field>
           )}
         </div>
-      </FieldGroup>
-      <Field>
-        <FileUpload addFile={(name, newFile) => {
-          const prev = data.attachments;
-          const added = { [name]: newFile, ...prev }
-          console.log("added", added)
-          onUpdate("attachments", added);
-        }} />
-      </Field>
+      </FieldSet>
+      <FieldSeparator className="col-span-full" />
+
+      {data.document_type && (
+        <FieldGroup className="col-span-full gap-2">
+          <FieldSet>
+            <FieldLegend>Evidence</FieldLegend>
+            <FieldDescription>Upload relevant evidence</FieldDescription>
+            <Field>
+              <div>
+                <FieldLabel>{data.document_type.toLowerCase()}</FieldLabel>
+              </div>
+              <FileDropzone
+                name="document"
+                allowed_ext=".png, .jpg"
+                file={data.attachments[data.document_type]}
+                addFile={(file) => {
+                  addAttachment(
+                    {
+                      [data.document_type]: {
+                        file: file,
+                        expiry_date: data.expiry_date,
+                        start_date: data.valid_from,
+                        file_name: data.document_type,
+                        file_type: file.type,
+                        file_size: file.size,
+                      },
+                    },
+                    true,
+                  );
+                }}
+                removeFile={(file) => removeAttachment(file)}
+              />
+            </Field>
+            <div>
+              <FieldLegend>Supporting Evidence</FieldLegend>
+              <FieldDescription>
+                Add additional supporting evidence
+              </FieldDescription>
+            </div>
+            <div className="flex gap-2 flex-wrap ">
+              {data.attachments.additional &&
+                Object.entries(data.attachments.additional).map(
+                  ([key, file]) => (
+                    <Field key={key} className="w-fit max-w-56">
+                      <FieldLabel>{file.file_name}</FieldLabel>
+                      <FileDropzone
+                        name={key}
+                        file={file}
+                        allowed_ext=".png, .pdf, .jpg, .webP"
+                        removeFile={(file) => removeAttachment(file)}
+                      />
+                    </Field>
+                  ),
+                )}
+            </div>
+            <div>
+              <FileUpload
+                addFile={(name, newFile) => {
+                  addAttachment(
+                    {
+                      [name]: {
+                        file: newFile.file,
+                        expiry_date: newFile.expiry_date,
+                        start_date: newFile.start_date,
+                        file_name: name,
+                        file_type: newFile.file_type,
+                        file_size: newFile.file?.size ?? 0,
+                      },
+                    },
+                    false,
+                  );
+                }}
+              />
+            </div>
+          </FieldSet>
+        </FieldGroup>
+      )}
       <Field className="col-span-full">
         <FieldLabel>Notes</FieldLabel>
-        <Textarea name="notes" placeholder="Additional Notes..."></Textarea>
+        <Textarea
+          onChange={(value) => updateLegal("notes", value.target.value)}
+          name="notes"
+          placeholder="Additional Notes..."
+        ></Textarea>
       </Field>
     </FormSection>
   );

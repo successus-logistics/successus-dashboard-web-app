@@ -1,23 +1,23 @@
 import { FileCheck2 } from "lucide-react";
-import DriverDatePicker from "../../driver-date-picker";
 import FormSection from "../../form";
-import FileDropzone from "@/components/ui/file-dropzone";
 import {
   Field,
   FieldGroup,
   FieldLabel,
   FieldLegend,
   FieldSet,
-  FieldTitle,
 } from "@/components/ui/field";
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from "@/components/ui/native-select";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { useDriverDraft } from "../driver-draft-context";
+import { DriverRecord } from "../../../types";
 
-export default function FinacialFields({ driver, onUpdate }) {
+export default function FinacialFields() {
+  const { draft, updateField } = useDriverDraft();
+  const updateFinancial = <K extends keyof DriverRecord["driver"]>(
+    field: K,
+    value: DriverRecord["driver"][K],
+  ) => updateField("driver", field, value);
   const [sortCode, setSortCode] = useState("");
   return (
     <FormSection
@@ -32,7 +32,15 @@ export default function FinacialFields({ driver, onUpdate }) {
         <FieldGroup className="col-span-full grid grid-cols-2">
           <Field className="col-span-full">
             <FieldLabel>Account Name</FieldLabel>
-            <Input type="text" name="account_name" placeholder="John Doe" />
+            <Input
+              type="text"
+              name="account_name"
+              placeholder="John Doe"
+              defaultValue={draft.driver.bank_account_name ?? ""}
+              onChange={(e) =>
+                updateFinancial("bank_account_name", e.target.value)
+              }
+            />
           </Field>
           <Field>
             <FieldLabel>Account Number</FieldLabel>
@@ -42,6 +50,10 @@ export default function FinacialFields({ driver, onUpdate }) {
               type="text"
               name="account_number"
               placeholder="12345678"
+              defaultValue={draft.driver.bank_account_number ?? ""}
+              onChange={(e) =>
+                updateFinancial("bank_account_number", e.target.value)
+              }
             />
           </Field>
           <Field>
@@ -51,10 +63,14 @@ export default function FinacialFields({ driver, onUpdate }) {
               name="sort_code"
               placeholder="xx-xx-xx"
               maxLength={8}
-              value={sortCode.replace(/(\d{2})(?=\d)/g, "$1-")}
+              value={(draft.driver.bank_sort_code ?? "").replace(
+                /(\d{2})(?=\d)/g,
+                "$1-",
+              )}
               onChange={(e) => {
                 const value = e.target.value.replace(/\D/g, "").slice(0, 6);
                 setSortCode(value);
+                updateFinancial("bank_sort_code", value);
               }}
             />
           </Field>
@@ -73,6 +89,8 @@ export default function FinacialFields({ driver, onUpdate }) {
               placeholder="AB123456C"
               type="text"
               name="ni_number"
+              defaultValue={draft.driver.ni_number ?? ""}
+              onChange={(e) => updateFinancial("ni_number", e.target.value)}
             />
           </Field>
           <Field>
@@ -83,6 +101,8 @@ export default function FinacialFields({ driver, onUpdate }) {
               maxLength={10}
               type="text"
               name="utr"
+              defaultValue={draft.driver.utr ?? ""}
+              onChange={(e) => updateFinancial("utr", e.target.value)}
             />
           </Field>
           <Field>
@@ -93,6 +113,8 @@ export default function FinacialFields({ driver, onUpdate }) {
               maxLength={9}
               type="text"
               name="vat"
+              defaultValue={draft.driver.vat ?? ""}
+              onChange={(e) => updateFinancial("vat", e.target.value)}
             />
           </Field>
         </FieldGroup>

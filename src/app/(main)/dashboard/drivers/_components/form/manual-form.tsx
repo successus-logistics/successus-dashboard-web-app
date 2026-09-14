@@ -1,14 +1,7 @@
-import { cn } from "@/lib/utils";
-import PersonalFields from "./sections/personal-fields";
-import LicenceFields from "./sections/license-fields";
-import RTWFields from "./sections/rtw-fields";
-
 import { toast } from "sonner";
+import { Check, Key } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { useRef, useState } from "react";
-import { driverFactory, DriverRecord } from "../../types";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   DialogClose,
   DialogDescription,
@@ -16,54 +9,103 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
-import { Check } from "lucide-react";
+import { useRef, useState } from "react";
+
+import { cn } from "@/lib/utils";
+import { DriverDraftProvider, useDriverDraft } from "./driver-draft-context";
 import FinacialFields from "./sections/financial-fields";
+import LicenceFields from "./sections/license-fields";
+import PersonalFields from "./sections/personal-fields";
+import RTWFields from "./sections/rtw-fields";
+import AdditionalFields from "./sections/additional-fields";
 
 export default function ManualForm({
   onOpenChange,
 }: {
   onOpenChange: (open: boolean) => void;
 }) {
+  return (
+    <DriverDraftProvider>
+      <ManualFormContent onOpenChange={onOpenChange} />
+    </DriverDraftProvider>
+  );
+}
+
+function ManualFormContent({
+  onOpenChange,
+}: {
+  onOpenChange: (open: boolean) => void;
+}) {
   // required sections
   const sections = {
-    driver: ["first_name", "last_name", "dob"],
-    licence_submission: ["licence_number", "licence_country"],
-    legal: ["document_type"],
-    finance: [],
+    driver: {
+      required: ["first_name", "last_name", "dob"],
+    },
+
+    licence_submission: {
+      required: ["licence_number", "licence_country"],
+    },
+
+    legal: {
+      isComplete: () => {
+        return (
+          (draft.legal.document_type &&
+            (draft.legal.passport_number || draft.legal.share_code)) ||
+          Object.keys(draft.legal.attachments).filter(
+            (key) => key !== "additional",
+          ).length > 0
+        );
+      },
+    },
+
+    finance: {
+      isComplete: () => {
+        const details = draft.driver;
+        return (
+          (details.bank_account_name &&
+            details.bank_account_number &&
+            details.bank_sort_code) ||
+          details.utr ||
+          details.ni_number ||
+          details.vat
+        );
+      },
+    },
+
+    driver_notes: {
+      isComplete: () => {
+        return Object.values(draft.driver_notes).some((value) => {
+          if (typeof value === "string") return value.length > 0;
+          else if (typeof value === "object")
+            return Object.values(value).length > 0;
+        });
+      },
+    },
   } as const;
   const router = useRouter();
   const [isSaving, setIsSaving] = useState(false);
   const [tab, setTab] = useState("tab-personal");
-  const [draft, setDraft] = useState<DriverRecord>(driverFactory());
+  const { draft } = useDriverDraft();
   const formRef = useRef<HTMLFormElement>(null);
-  console.log("draft", draft);
-
-  function update<
-    K extends keyof NonNullable<DriverRecord>,
-    SK extends keyof NonNullable<DriverRecord[K]>,
-  >(parentKey: K, subKey: SK, value: NonNullable<DriverRecord[K]>[SK]) {
-    setDraft((current) => ({
-      ...current,
-      [parentKey]: {
-        ...current[parentKey],
-        [subKey]: value,
-      },
-    }));
-  }
 
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    const incompleteSections: (typeof sections)[keyof typeof sections][] = [];
-    const requiredValues = Object.entries(sections).some(([key, val]) => {
-      if (getProgress(key) == "partial") {
+    const partiallyCompleteSections: (keyof typeof sections)[] = [];
+    const incompleteSections: (keyof typeof sections)[] = [];
+    Object.entries(sections).forEach(([key, val]) => {
+      const progress = getProgress(key);
+      if (progress == "partial") {
+        partiallyCompleteSections.push(key);
+      }
+      if (progress == "incomplete") {
         incompleteSections.push(key);
-        return true;
       }
     });
-    if (requiredValues) {
+    if (partiallyCompleteSections.length > 0) {
       toast.error(
-        `Please complete the required fields in the "${incompleteSections}" section.`,
+        `Please complete the required fields in the "${partiallyCompleteSections}" section.`,
       );
       return;
     }
@@ -71,20 +113,19 @@ export default function ManualForm({
     // setIsSaving(true);
 
     const data = {};
-    data["attachments"] = {}
-    for (const [sectionName, sectionValue] of Object.entries(draft)) {
-      data[sectionName] = {}
-      for (const [key, value] of Object.entries(sectionValue)) {
-        if (key === "attachments") {
-          for (const [attachmentKey, attachmentValue] of Object.entries(value)) {
-            data["attachments"][attachmentKey] = attachmentValue.type;
-          }
-        } else data[sectionName][key] = value;
+    data["driver"] = draft["driver"];
+    if (!incompleteSections.includes("licence_submission")) {
+      data["licence_submission"] = draft["licence_submission"];
+    }
+    if (!incompleteSections.includes("legal")) {
+      data["legal"] = draft["legal"];
+    }
+    for (const key of Object.keys(sections)) {
+      if (!incompleteSections.includes(key)) {
+        data[key] = draft[key];
       }
     }
-    console.log("finished data", data);
-    return;
-
+    delete data.finance;
     try {
       const saved = await fetch("/api/drivers/", {
         method: "POST",
@@ -94,23 +135,72 @@ export default function ManualForm({
         },
       });
       if (saved.ok) {
-        const data = await saved.json();
+        const response = await saved.json();
         toast.success("Successfully added new driver");
-        console.log(data);
+        async function uploadDocuments(
+          response: Record<string, unknown>,
+          files: Record<string, File>,
+          concurrency = 3,
+        ) {
+          const documents: Array<[string, any]> = [];
 
-        for (const [key, url] of Object.entries(data)) {
-          const response = await fetch(url, {
-            method: "PUT",
-            body: draft["attachments"][key],
-            headers: {
-              "Content-Type": draft["attachments"][key].type,
-            },
-          });
-          if (response.ok) {
-            console.log("good");
+          function collect(value: unknown) {
+            if (!value || typeof value !== "object") return;
+
+            const obj = value as Record<string, unknown>;
+
+            if ("upload_url" in obj) {
+              documents.push([obj.file_name as string, obj]);
+              return;
+            }
+
+            for (const child of Object.values(obj)) {
+              collect(child);
+            }
           }
-        }
 
+          collect(response);
+
+          let index = 0;
+
+          async function worker() {
+            while (index < documents.length) {
+              const current = index++;
+
+              const [key, document] = documents[current];
+              await fetch(document.upload_url, {
+                method: "PUT",
+                body: files[key],
+              });
+            }
+          }
+
+          await Promise.all(
+            Array.from(
+              { length: Math.min(concurrency, documents.length) },
+              worker,
+            ),
+          );
+        }
+        let attachments = {};
+        const files = Object.values(draft).forEach((value) => {
+          for (const [fileKey, fileValue] of Object.entries(
+            value.attachments,
+          )) {
+            if (fileKey === "additional") {
+              const files = Object.fromEntries(
+                Object.entries(fileValue).map(([key, value]) => [
+                  key,
+                  value.file,
+                ]),
+              );
+              attachments = { ...attachments, ...files };
+            } else {
+              attachments[fileKey] = fileValue.file;
+            }
+          }
+        });
+        await uploadDocuments(response, attachments, 3);
         onOpenChange(false);
         router.refresh();
       }
@@ -133,14 +223,20 @@ export default function ManualForm({
   }
 
   function getProgress(section: keyof typeof sections) {
-    const values = sections[section].map((field) => {
-      return draft[section][field];
-    });
+    const config = sections[section];
+
+    if ("isComplete" in config) {
+      return config.isComplete() ? "complete" : "incomplete";
+    }
+
+    const values = config.required.map((field) => draft[section][field]);
+
     const filled = values.filter(
       (value) => value !== null && value !== "" && value !== undefined,
     ).length;
+
     if (filled === 0) return "incomplete";
-    if (filled === sections[section].length) return "complete";
+    if (filled === values.length) return "complete";
     return "partial";
   }
 
@@ -221,28 +317,33 @@ export default function ManualForm({
                     tabStatus={getTabState("finance")}
                   />
                 </TabsTrigger>
+                <DriverProgressBar status={getProgress("finance")} />
+                <TabsTrigger
+                  value="tab-additional"
+                  className="flex-col h-10 bg-none!"
+                >
+                  <DriverProgressTab
+                    tabNum={5}
+                    tabTitle="Additional"
+                    tabStatus={getTabState("driver_notes")}
+                  />
+                </TabsTrigger>
               </div>
             </TabsList>
             <TabsContent value="tab-personal">
-              <PersonalFields
-                driver={draft.driver}
-                onUpdate={(subKey, value) => update("driver", subKey, value)}
-              />
+              <PersonalFields />
             </TabsContent>
             <TabsContent value="tab-license">
-              <LicenceFields
-                licence={draft.licence_submission}
-                onUpdate={update}
-              />
+              <LicenceFields />
             </TabsContent>
             <TabsContent value="tab-rtw">
-              <RTWFields
-                data={draft.legal}
-                onUpdate={(subKey, value) => update("legal", subKey, value)}
-              />
+              <RTWFields />
             </TabsContent>
             <TabsContent value="tab-tax">
-              <FinacialFields driver={draft} onUpdate={update} />
+              <FinacialFields />
+            </TabsContent>
+            <TabsContent value="tab-additional">
+              <AdditionalFields />
             </TabsContent>
           </Tabs>
         </div>

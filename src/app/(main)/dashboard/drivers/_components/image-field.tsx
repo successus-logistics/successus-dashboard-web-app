@@ -8,7 +8,6 @@ import {
   AlertDialogHeader,
   AlertDialogMedia,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import {
   Attachment,
@@ -20,23 +19,16 @@ import {
   AttachmentTitle,
   AttachmentTrigger,
 } from "@/components/ui/attachment";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import type { ComponentProps } from "react";
-import { CirclePlus, XIcon, Trash2Icon } from "lucide-react";
+import { CirclePlus, XIcon, Trash2Icon, FileIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { returnFileSize } from "@/lib/utils";
 
 type AttachmentProps = ComponentProps<typeof Attachment> & {
-  field: string;
-  image?: string | File;
+  field?: string | undefined;
+  image?: File;
   deleteAction: () => void;
 };
 
@@ -51,10 +43,9 @@ export default function ImageField({
   ...props
 }: AttachmentProps) {
   const [open, setOpen] = useState(false);
-  const [file, setFile] = useState(image);
-  let src = file;
-  if (src instanceof File) {
-    src = getImgPreview(src);
+  let src = "";
+  if (image instanceof File) {
+    src = getImgPreview(image);
   }
   if (image) {
     return (
@@ -69,19 +60,25 @@ export default function ImageField({
             className="group-hover:scale-105 transition-transform duration-300"
             variant={"image"}
           >
-            <Image
-              className="z-0 object-cover group-hover:scale-105 transition-transform duration-300"
-              fill
-              src={src ?? "#"}
-              alt={field}
-            />
+            {src ? (
+              <Image
+                className="z-0 object-cover group-hover:scale-105 transition-transform duration-300"
+                fill
+                src={src}
+                alt={field ?? "no image provided"}
+              />
+            ) : (
+              <FileIcon />
+            )}
           </AttachmentMedia>
           <AttachmentContent>
             <AttachmentTitle>{field}</AttachmentTitle>
-            <AttachmentDescription>PNG &#8226; 20mb</AttachmentDescription>
+            <AttachmentDescription>
+              {image.type} &#8226; {returnFileSize(image.size)}
+            </AttachmentDescription>
           </AttachmentContent>
           <AttachmentActions onClick={() => setOpen(true)}>
-            <AttachmentAction aria-label={`Remove ${field}`}>
+            <AttachmentAction type="button" aria-label={`Remove ${field}`}>
               <XIcon />
             </AttachmentAction>
           </AttachmentActions>
@@ -98,7 +95,10 @@ export default function ImageField({
           <AlertDialogDestructive
             open={open}
             closeAlert={() => setOpen(false)}
-            deleteAction={() => deleteAction()}
+            deleteAction={() => {
+              if (src) URL.revokeObjectURL(src);
+              deleteAction();
+            }}
           />
         )}
       </>
