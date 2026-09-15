@@ -17,10 +17,6 @@ import { useState } from "react";
 import FileDropzone from "./file-dropzone";
 import { AttachmentType } from "@/app/(main)/dashboard/drivers/types";
 
-const fileType = {
-  image: ".png, webp, .jpg, .jpeg",
-  document: ".pdf, .docx, .doc",
-} as const;
 
 const EMPTYFILEINFORMATION = {
   file_name: "",
@@ -41,7 +37,6 @@ export default function FileUpload({
 
   const [fileInformation, setFileInformation] =
     useState<AttachmentType>(EMPTYFILEINFORMATION);
-  console.log("changed", fileInformation);
   return (
     <Dialog
       open={open}

@@ -16,6 +16,7 @@ import DriverDocuments from "./driver-documents";
 import Link from "next/link";
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -23,13 +24,13 @@ import {
 import { DriverRecord } from "../../types";
 import { useState } from "react";
 import Licence from "./licence";
-import { Separator } from "@/components/ui/separator";
 import Legal from "./legal";
 import { Badge } from "@/components/ui/badge";
 import Finance from "./finance";
 import Contracts from "./contracts";
 import BannerHeader from "./banner-header";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import SidePanel from "./side-panel";
 
 export default function DriverProfile({
   driverDetails,
@@ -43,35 +44,38 @@ export default function DriverProfile({
   // the main fields (might make it more visually appealing)
   return (
     <div className="grid grid-rows-[auto_1fr] gap-5 h-full scroll-smooth">
-      <div defaultValue="personal" className="grid gap-5">
-        <div
+      <div defaultValue="personal" className="grid grid-rows-2 gap-5">
+        <Card
           defaultValue="personal"
-          className="relative flex flex-col justify-start *:self-start *:justify-self-start min-w-48  h-full row-span-full"
+          className="bg-transparent ring-0 relative flex flex-col justify-start *:self-start *:justify-self-start h-full row-span-full"
         >
-          <Card className="absolute inset-0 opacity-50  bg-[url('https://plus.unsplash.com/premium_photo-1681487526392-6183829c5f80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] h-full w-full z-0 bg-cover bg-top mask-l-from-20% mask-l-to-90%" />
+          <Card className="absolute inset-0 opacity-50 bg-[url('https://images.ctfassets.net/v78wipeni189/1ys4COBxrKXRFiYYdLcJt4/918346c4a24e2ea9d922c44feedaeba6/iStock-1438205719_1.png?fm=webp&w=1920&q=80&h=720')] h-full w-full z-0 bg-cover bg-center mask-l-from-10% mask-l-to-90%" ></Card>
           <div className="flex flex-col gap-2 justify-start items-start z-0">
-            <div className="space-y-1">
-              <Button variant={"link"} asChild>
-                <Link href={"/dashboard/drivers"}>
-                  <ArrowLeft /> Back
-                </Link>
-              </Button>
-              <h1 className="text-3xl tracking-tight">Driver Profile</h1>
-              <p className="text-muted-foreground text-sm">
-                View, update or delete.
-              </p>
-            </div>
+
+            <CardContent className="h-28">
+              <div className="space-y-1">
+                <Button variant={"link"} asChild>
+                  <Link href={"/dashboard/drivers"}>
+                    <ArrowLeft /> Back
+                  </Link>
+                </Button>
+                <h1 className="text-3xl tracking-tight">Driver Profile</h1>
+                <p className="text-muted-foreground text-sm">
+                  View, update or delete.
+                </p>
+              </div>
+            </CardContent>
           </div>
-        </div>
+        </Card>
       </div>
-      <BannerHeader driverDetails={driverDetails} />
-      <div className="grid auto-rows-min grid-cols-1 gap-5">
-        <Tabs defaultValue="personal">
-          <TabsList>
+      <div className="grid  gap-3">
+        <Tabs defaultValue="personal" className="grid grid-rows-[auto_2em_1fr] grid-cols-[2fr_1fr] gap-5 gap-x-10">
+          <BannerHeader driverDetails={driverDetails} />
+          <TabsList variant={"line"} className="w-full col-start-1">
             <Trigger value="personal">
               <User /> Personal
             </Trigger>
-            <Trigger value="driving-licence">
+            <Trigger value="licence">
               <IdCard />
               Driving Licence
             </Trigger>
@@ -92,39 +96,45 @@ export default function DriverProfile({
               Additional
             </Trigger>
           </TabsList>
-          <TabsContent value="personal">
-            <div id="personal" className="flex flex-col gap-3">
+          <div className="col-start-1 flex flex-col gap-2">
+            <TabsContent value="personal">
               <DriverDetials
                 disabled={!isEditing}
                 driverDetails={driverDetails}
               />
-            </div>
-          </TabsContent>
-          <TabsContent value="licence">
-            <div id="driving-licence" className="flex flex-col gap-3">
-              <Licence driverDetails={driverDetails} />
-            </div>
-          </TabsContent>
-          <TabsContent value="legal">
-            <div id="legal" className="flex flex-col gap-3">
-              <Legal driverDetails={driverDetails} />
-            </div>
-          </TabsContent>
-          <TabsContent value="finance">
-            <div id="finance" className="flex flex-col gap-3">
-              <Finance driverDetails={driverDetails} />
-            </div>
-          </TabsContent>
-          <TabsContent value="contract">
-            <div id="contracts" className="flex flex-col gap-3">
-              <Contracts driverDetails={driverDetails} />
-            </div>
-          </TabsContent>
-          <TabsContent value="additional">
-            <div id="additional" className="flex flex-col gap-3">
-              <DriverContracts driverDetails={driverDetails} />
-            </div>
-          </TabsContent>
+            </TabsContent>
+            <TabsContent value="licence">
+              <div id="driving-licence" className="flex flex-col gap-3">
+                <Licence driverDetails={driverDetails} />
+              </div>
+            </TabsContent>
+            <TabsContent value="legal">
+              <div id="legal" className="flex flex-col gap-3">
+                <Legal driverDetails={driverDetails} />
+              </div>
+            </TabsContent>
+            <TabsContent value="finance">
+              <div id="finance" className="flex flex-col gap-3">
+                <Finance driverDetails={driverDetails} />
+              </div>
+            </TabsContent>
+            <TabsContent value="contract">
+              <div id="contracts" className="flex flex-col gap-3">
+                <Contracts driverDetails={driverDetails} />
+              </div>
+            </TabsContent>
+            <TabsContent value="additional">
+              <div id="additional" className="flex flex-col gap-3">
+                <DriverContracts driverDetails={driverDetails} />
+              </div>
+            </TabsContent>
+            <Button size={"lg"} className="h-10">
+              Save Changes
+            </Button>
+          </div>
+          <div className="col-start-2 row-start-1 row-span-full">
+            <SidePanel driverDetails={driverDetails} />
+          </div>
         </Tabs>
       </div>
     </div>
@@ -138,20 +148,10 @@ function Trigger({
   children: React.ReactNode;
   value: string;
 }) {
-  function smoothScroll() {
-    const target = document.querySelector("#" + value);
-    const targetPosition = target.getBoundingClientRect().top;
-    const offsetPosition = targetPosition + window.pageYOffset - 50;
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth",
-    });
-  }
   return (
     <TabsTrigger
       value={value}
-      onClick={smoothScroll}
-      className="font-medium data-active:text-primary data-active:border-r data-active:border-primary data-active:bg-accent/50 p-3 py-4 w-full text-start! justify-start pl-0  flex items-center gap-2 cursor-pointer"
+      className="h-10 data-active:text-primary! tracking-widest data-active:after:bg-primary "
     >
       {children}
     </TabsTrigger>
